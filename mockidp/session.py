@@ -2,7 +2,7 @@
 import time
 
 _sessions = dict()
-next_session_id = 0
+_next_session_id = 0
 
 
 class Session:
@@ -28,6 +28,6 @@ def has_session(username):
 
 
 def _generate_session_id(username):
-    global next_session_id
-    next_session_id += 1
-    return f"{username}_{next_session_id}"
+    global _next_session_id
+    _next_session_id += 1
+    return f"{username}_{_next_session_id}"

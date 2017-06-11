@@ -1,0 +1,16 @@
+service_providers:
+  - name: "local:aem:author"
+    url: "http://localhost:14502"
+
+users:
+  charlie:
+    first_name: "Charlie"
+    last_name: "Brown"
+    email: "charlie@gmail.com"
+    password: snoopy
+  linus:
+    password: pumpkin
+  lucy:
+    password: charlie
+  peppermint:
+    password: peppermint

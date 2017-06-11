@@ -1,0 +1,6 @@
+lxml
+flask
+PyYAML>=3.12
+flask-script>=2.0.5
+requests>=2.7.0
+nose

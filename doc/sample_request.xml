@@ -1,0 +1,9 @@
+<samlp:AuthnRequest xmlns:samlp="urn:oasis:names:tc:SAML:2.0:protocol"
+    Version="2.0"
+    ID="_2d099eab-b6bb-41fc-971a-389dec6a7ee5"
+    Destination="http://localhost:5000/saml_login"
+    IssueInstant="2017-06-07T11:06:02Z"
+    ProtocolBinding="urn:oasis:names:tc:SAML:2.0:bindings:HTTP-POST" >
+    <saml:Issuer xmlns:saml="urn:oasis:names:tc:SAML:2.0:assertion">http://mock-sp</saml:Issuer>
+    <samlp:NameIDPolicy AllowCreate="true" Format="urn:mace:dir:attribute-def:displayName"/>
+</samlp:AuthnRequest>

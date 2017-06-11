@@ -1,0 +1,4 @@
+service_providers:
+  - name: "service_provider"
+    url: "http://localhost:4502"
+

@@ -4,7 +4,7 @@ import flask
 from mockidp.auth import login_user, LOGIN_SUCCESS
 from mockidp.config import parse_config
 from mockidp.request import parse_request
-from mockidp.response import post_session
+from mockidp.response import create_auth_response
 from mockidp.session import get_session
 
 conf = parse_config('config.yaml')
@@ -41,8 +41,8 @@ def authenticate():
         saml_req_id = flask.request.cookies.get('mockidp_request_id')
         saml_request = open_saml_requests[saml_req_id]
         session = get_session(user, saml_request)
-        post_session(conf, session)
-        return 'OK'
+        url, saml_response = create_auth_response(conf, session)
+        return flask.render_template('auth_response.html', post_url=url, saml_response=saml_response)
     else:
         flask.flash(f"Incorrect username or password {username}")
         return flask.redirect("/login", code=302)

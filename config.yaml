@@ -8,9 +8,22 @@ users:
     last_name: "Brown"
     email: "charlie@gmail.com"
     password: snoopy
+    roles:
+      - administrators
   linus:
+    first_name: "Linus"
+    last_name: "van Pelt"
+    email: "linus@gmail.com"
     password: pumpkin
+    roles:
+      - administrators
   lucy:
     password: charlie
+    first_name: "Lucy"
+    last_name: "van Pelt"
+    email: "lucy@gmail.com"
   peppermint:
+    first_name: "Peppermint"
+    last_name: "Patty"
+    email: "peppermint@gmail.com"
     password: peppermint

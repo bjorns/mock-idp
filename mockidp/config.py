@@ -1,11 +1,28 @@
 # coding: utf-8
 import yaml
+import os
+import pkg_resources
+
+LOCAL_CONFIG = "{}/mockidp.yaml".format(os.path.curdir)
+HOME_DIR_CONFIG = "{}/.mockidp.yaml".format(os.path.expanduser("~"))
+GLOBAL_CONFIG = "/etc/mockidp.yaml"
+
+
+def locate_config_file():
+    """ Return a path to a config to use accoding to standard preference rules """
+    if os.path.isfile(LOCAL_CONFIG):
+        return LOCAL_CONFIG
+    if os.path.isfile(HOME_DIR_CONFIG):
+        return HOME_DIR_CONFIG
+    if os.path.isfile(GLOBAL_CONFIG):
+        return GLOBAL_CONFIG
+    return pkg_resources.resource_filename('mockidp', 'resources/default_config.yaml')
 
 
 def parse_config(filename):
-    f = open(filename)
-    config = yaml.load(f)
-    return config
+    with open(filename) as f:
+        config = yaml.load(f)
+        return config
 
 
 def get_service_provider(config, name):

@@ -3,12 +3,14 @@ import flask
 from mockidp import app
 
 from mockidp.auth import login_user, LOGIN_SUCCESS
-from mockidp.config import parse_config
+from mockidp.config import parse_config, locate_config_file
 from mockidp.request import parse_request
 from mockidp.response import create_auth_response
 from mockidp.session import get_session
 
-conf = parse_config('config.yaml')
+config_filename = locate_config_file()
+print(f"Loading config {config_filename}")
+conf = parse_config(config_filename)
 open_saml_requests = dict()
 
 

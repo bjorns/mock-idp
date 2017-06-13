@@ -18,6 +18,7 @@ def begin_login():
     saml_request = flask.request.form['SAMLRequest']
     req = parse_request(saml_request)
 
+    print(f"Storing request {req.id}")
     open_saml_requests[req.id] = req
 
     response = flask.make_response(flask.redirect("/login", code=302))
@@ -39,8 +40,8 @@ def authenticate():
     if status == LOGIN_SUCCESS:
         saml_req_id = flask.request.cookies.get('mockidp_request_id')
         saml_request = open_saml_requests[saml_req_id]
-        session = get_session(user, saml_request.id)
-        post_session(session)
+        session = get_session(user, saml_request)
+        post_session(conf, session)
         return 'OK'
     else:
         flask.flash(f"Incorrect username or password {username}")

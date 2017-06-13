@@ -6,19 +6,20 @@ _next_session_id = 0
 
 
 class Session:
-    def __init__(self, user, request_id):
+    def __init__(self, user, request):
         self.user = user
-        self.request_id = request_id
+        self.request_id = request.id
+        self.sp_entity_id = request.sp_entity_id
         self.id = _generate_session_id(user['username'])
         self.created = time.time()
 
 
-def get_session(user, request_id):
+def get_session(user, request):
     username = user['username']
     if has_session(username):
         return _sessions[username]
     else:
-        session = Session(user, request_id)
+        session = Session(user, request)
         _sessions[username] = session
         return session
 

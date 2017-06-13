@@ -1,6 +1,6 @@
 service_providers:
   - name: "local:aem:author"
-    url: "http://localhost:14502"
+    response_url: "http://localhost:14502/saml_login"
 
 users:
   charlie:

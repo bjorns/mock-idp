@@ -1,14 +1,33 @@
 <?xml version="1.0"?>
-<samlp:Response xmlns:samlp="urn:oasis:names:tc:SAML:2.0:protocol" xmlns:saml="urn:oasis:names:tc:SAML:2.0:assertion"
-    ID="{{ session.id }}" InResponseTo="{{ session.request_id }}" IssueInstant="{{ session.created|timestamp }}" Version="2.0">
+<samlp:Response
+    xmlns:samlp="urn:oasis:names:tc:SAML:2.0:protocol"
+    xmlns:saml="urn:oasis:names:tc:SAML:2.0:assertion"
+    xmlns:ds="http://www.w3.org/2000/09/xmldsig#"
+    ID="{{ session.id }}" InResponseTo="{{ session.request_id }}" IssueInstant="{{ session.created|timestamp }}"
+    Version="2.0">
+
+    <saml:Issuer>http://localhost:5000/metadata</saml:Issuer>
     <samlp:Status>
         <samlp:StatusCode Value="urn:oasis:names:tc:SAML:2.0:status:Success"/>
     </samlp:Status>
     <saml:Assertion ID="{{ session.id }}" IssueInstant="{{ session.created|timestamp }}" Version="2.0">
+        <saml:Issuer>http://localhost:5000/metadata</saml:Issuer>
+        <ds:Signature Id="placeholder" />
+        <saml:Subject>
+            <saml:NameID SPNameQualifier="http://sp.example.com/demo1/metadata.php" Format="urn:oasis:names:tc:SAML:2.0:nameid-format:transient">_ce3d2948b4cf20146dee0a0b3dd6f69b6cf86f62d7</saml:NameID>
+            <saml:SubjectConfirmation Method="urn:oasis:names:tc:SAML:2.0:cm:bearer">
+                <saml:SubjectConfirmationData NotOnOrAfter="2024-01-18T06:21:48Z" Recipient="http://sp.example.com/demo1/index.php?acs" InResponseTo="ONELOGIN_4fee3b046395c4e751011e97f8900b5273d56685"/>
+            </saml:SubjectConfirmation>
+        </saml:Subject>
         <saml:AttributeStatement>
             <saml:Attribute Name="email">
                 <saml:AttributeValue>{{ user.email }}</saml:AttributeValue>
             </saml:Attribute>
         </saml:AttributeStatement>
+        <saml:Conditions>
+            <saml:AudienceRestriction>
+                <saml:Audience>{{ session.sp_entity_id }}</saml:Audience>
+            </saml:AudienceRestriction>
+        </saml:Conditions>
     </saml:Assertion>
 </samlp:Response>

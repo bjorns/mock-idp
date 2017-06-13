@@ -1,0 +1,13 @@
+#!/usr/bin/env python3
+import sys
+from imp import reload
+
+import mockidp
+
+reload(sys)
+
+if __name__ == '__main__':
+    try:
+        mockidp.main(sys.argv)
+    except KeyboardInterrupt as e:
+        sys.exit(-1)

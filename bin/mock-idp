@@ -3,12 +3,13 @@ import sys
 from imp import reload
 
 import mockidp
+from mockidp.main import main
 
 reload(sys)
 
 if __name__ == '__main__':
     try:
-        mockidp.main(sys.argv)
+        main(sys.argv)
     except KeyboardInterrupt as e:
         sys.exit(-1)
 

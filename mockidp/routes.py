@@ -54,3 +54,13 @@ def authenticate():
 @app.route('/css/<path:path>')
 def send_js(path):
     return flask.send_from_directory('resources/css', path)
+
+
+@app.route('/img/<path:path>')
+def images(path):
+    return flask.send_from_directory('resources/img', path)
+
+
+@app.route('/debug')
+def debug():
+    return flask.render_template('auth_response_debug.html')

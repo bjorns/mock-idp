@@ -12,4 +12,4 @@ def main(argv):
     for username, data in conf['users'].items():
         print(f"Loaded user {username}")
 
-    app.run(debug=False, port=conf.get('port', 5000))
+    app.run(debug=True, port=conf.get('port', 5000))

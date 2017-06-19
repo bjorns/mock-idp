@@ -1,12 +1,14 @@
 #!/usr/bin/env python3
 import sys
+import pkg_resources
 
 from lxml import etree
 from signxml import XMLSigner
 
 
 def read_bytes(path):
-    return open(path, 'rb').read()
+    filename = pkg_resources.resource_filename(path)
+    return open(filename, 'rb').read()
 
 
 def sign_assertions(response_str):

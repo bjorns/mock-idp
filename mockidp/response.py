@@ -1,8 +1,8 @@
 # coding: utf-8
 import base64
 import time
+import pkg_resources
 
-import requests
 from jinja2 import Environment, PackageLoader, select_autoescape
 from lxml import etree
 from signxml import XMLSigner
@@ -23,7 +23,8 @@ env.filters['timestamp'] = saml_timestamp
 
 
 def read_bytes(path):
-    return open(path, 'rb').read()
+    filename = pkg_resources.resource_filename('mockidp', path)
+    return open(filename, 'rb').read()
 
 
 def sign_assertions(response_str):
@@ -44,7 +45,6 @@ def create_auth_response(config, session):
 
     signed_response = sign_assertions(rendered_response)
 
-    print("========= Response =======\n{}".format(signed_response.decode('utf-8')))
     encoded_response = base64.b64encode(signed_response).decode('utf-8')
 
     service_provider = get_service_provider(config, session.sp_entity_id)

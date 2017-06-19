@@ -16,7 +16,6 @@ def sign_assertions(response_str):
     for e in response_element.findall('{urn:oasis:names:tc:SAML:2.0:assertion}Assertion'):
         verifier = XMLVerifier()
         data = verifier.verify(e, x509_cert=cert).signed_xml
-        print("=== {}".format(data))
 
 
 def main(filename):

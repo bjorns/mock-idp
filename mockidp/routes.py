@@ -14,7 +14,7 @@ conf = parse_config(config_filename)
 open_saml_requests = dict()
 
 
-@app.route('/saml_login', methods=['POST'])
+@app.route('/saml', methods=['POST'])
 def begin_login():
     saml_request = flask.request.form['SAMLRequest']
     req = parse_request(saml_request)
@@ -22,17 +22,17 @@ def begin_login():
     print(f"Storing request {req.id}")
     open_saml_requests[req.id] = req
 
-    response = flask.make_response(flask.redirect("/login", code=302))
+    response = flask.make_response(flask.redirect("/saml/login", code=302))
     response.set_cookie('mockidp_request_id', value=req.id)
     return response
 
 
-@app.route('/login', methods=['GET'])
+@app.route('/saml/login', methods=['GET'])
 def login_view():
     return flask.render_template('login.html')
 
 
-@app.route('/auth', methods=['POST'])
+@app.route('/saml/auth', methods=['POST'])
 def authenticate():
     username = flask.request.form.get('username')
     password = flask.request.form.get('password')
@@ -48,7 +48,7 @@ def authenticate():
         return flask.render_template('auth_response.html', post_url=url, saml_response=saml_response)
     else:
         flask.flash(f"Incorrect username or password {username}")
-        return flask.redirect("/login", code=302)
+        return flask.redirect("/saml/login", code=302)
 
 
 @app.route('/css/<path:path>')

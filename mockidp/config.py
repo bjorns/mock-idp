@@ -10,13 +10,16 @@ GLOBAL_CONFIG = "/etc/mockidp.yaml"
 
 def locate_config_file():
     """ Return a path to a config to use accoding to standard preference rules """
+
+    print(f"Checking if ${LOCAL_CONFIG} is a file")
     if os.path.isfile(LOCAL_CONFIG):
         return LOCAL_CONFIG
     if os.path.isfile(HOME_DIR_CONFIG):
         return HOME_DIR_CONFIG
     if os.path.isfile(GLOBAL_CONFIG):
         return GLOBAL_CONFIG
-    return pkg_resources.resource_filename('mockidp', 'resources/default_config.yaml')
+    resource = pkg_resources.resource_filename('mockidp', 'resources/default_config.yaml')
+    return resource
 
 
 def parse_config(filename):

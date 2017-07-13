@@ -7,7 +7,7 @@ clean:
 	find . | grep __pycache__ | xargs rm -rf
 
 dist: clean
-	python setup.py bdist_wheel --universal
+	python3 setup.py bdist_wheel
 
 test_release: dist
 	twine upload -r pypitest dist/*

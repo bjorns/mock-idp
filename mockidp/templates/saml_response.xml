@@ -44,5 +44,11 @@
                 <saml:Audience>{{ session.sp_entity_id }}</saml:Audience>
             </saml:AudienceRestriction>
         </saml:Conditions>
+        <saml:AuthnStatement AuthnInstant="2014-07-17T01:01:48Z" SessionNotOnOrAfter="2024-07-17T09:01:48Z"
+            SessionIndex="_be9967abd904ddcae3c0eb4189adbe3f71e327cf93">
+            <saml:AuthnContext>
+                <saml:AuthnContextClassRef>urn:oasis:names:tc:SAML:2.0:ac:classes:Password</saml:AuthnContextClassRef>
+            </saml:AuthnContext>
+        </saml:AuthnStatement>
     </saml:Assertion>
 </samlp:Response>

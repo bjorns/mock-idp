@@ -24,4 +24,5 @@ EXPOSE 5000
 
 WORKDIR /
 
-CMD [ "mock-idp" ]
+ENTRYPOINT [ "mock-idp", "-p" ]
+CMD [ "5000" ]

@@ -12,6 +12,9 @@ def main(argv):
     parser.add_option("-d", "--debug",
                       action="store_true", dest="debug", default=False,
                       help="Launch app in auto-reloading debug mode")
+    parser.add_option("-p", "--port",
+                      dest="port", default=5000,
+                      help="Listen on port")
 
     options, args = parser.parse_args(args=argv)
 
@@ -22,4 +25,4 @@ def main(argv):
         print(f"Loaded user {username}")
 
     sys.stdout.flush()
-    app.run(debug=options.debug, host="0.0.0.0", port=conf.get('port', 5000))
+    app.run(debug=options.debug, host="0.0.0.0", port=options.port)

@@ -1,5 +1,5 @@
 # coding: utf-8
-
+import zlib
 from base64 import b64decode
 from io import BytesIO
 
@@ -12,15 +12,21 @@ class SAMLRequest:
         self.sp_entity_id = sp_entity_id
 
 
+def try_deflate(request_body):
+    try:
+        return zlib.decompress(request_body, -15)
+    except Exception as e:
+        print(e)
+        return request_body
+
+
 def parse_request(request_body):
     """ Expectes the source base64 encoded SAMLRequest header """
-    request_xml = b64decode(request_body).decode('utf-8')
+    request_xml = b64decode(request_body)
+    request_xml = try_deflate(request_xml)
 
-    srcbuf = BytesIO(request_xml.encode('utf-8'))
+    srcbuf = BytesIO(request_xml)
     doc = etree.parse(srcbuf)
-
-    # pretty_xml = etree.tostring(doc.getroot(), pretty_print=True).decode('utf-8')
-    # print("=== Request ====\n{}\n=========".format(str(pretty_xml)))
 
     req = _parse_request_xml(doc)
     return req

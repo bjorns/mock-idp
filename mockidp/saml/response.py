@@ -7,7 +7,7 @@ from jinja2 import Environment, PackageLoader, select_autoescape
 from lxml import etree
 from signxml import XMLSigner
 
-from mockidp.config import get_service_provider
+from mockidp.core.config import get_service_provider
 
 env = Environment(
     loader=PackageLoader('mockidp', 'templates'),

@@ -1,7 +1,7 @@
 # coding: utf-8
 from nose.tools import eq_, ok_
 
-from mockidp.config import parse_config, get_service_provider
+from mockidp.core.config import parse_config, get_service_provider
 
 
 def test_parse_config():

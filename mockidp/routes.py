@@ -2,7 +2,7 @@
 import flask
 from mockidp import app
 
-from mockidp.config import parse_config, locate_config_file
+from mockidp.core.config import parse_config, locate_config_file
 
 config_filename = locate_config_file()
 print(f"Loading config {config_filename}")

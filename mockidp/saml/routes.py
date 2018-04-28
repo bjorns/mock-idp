@@ -2,17 +2,18 @@ import flask
 from mockidp import app
 
 from mockidp.core.auth import login_user, LOGIN_SUCCESS
-from mockidp.core.config import parse_config, locate_config_file
 from mockidp.core.session import get_session
 
 from .request import parse_request
 from .response import create_auth_response
 
 open_saml_requests = dict()
+conf = None
 
-config_filename = locate_config_file()
-print(f"Loading config {config_filename}")
-conf = parse_config(config_filename)
+
+def init(_conf):
+    global conf
+    conf = _conf
 
 
 @app.route('/saml', methods=['POST'])

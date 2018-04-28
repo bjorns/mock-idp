@@ -3,7 +3,7 @@ import sys
 from optparse import OptionParser
 
 from mockidp import app
-from mockidp.routes import conf
+from mockidp import core, saml
 
 
 def main(argv):
@@ -17,6 +17,9 @@ def main(argv):
                       help="Listen on port")
 
     options, args = parser.parse_args(args=argv)
+
+    conf, sessions = core.init()
+    saml.init(conf)
 
     for sp in conf['service_providers']:
         print(f"Known Service Provider {sp['name']}")

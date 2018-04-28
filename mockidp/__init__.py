@@ -6,5 +6,3 @@ app = Flask(__name__)
 
 import mockidp.saml.routes
 import mockidp.routes
-
-from mockidp.routes import conf

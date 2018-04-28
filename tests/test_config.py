@@ -12,6 +12,7 @@ def test_parse_config():
     eq_('service_provider', sp['name'])
     eq_('http://localhost:4502', sp['url'])
 
+
 def test_get_service_provider():
     config = {
         'service_providers': [

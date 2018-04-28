@@ -1,7 +1,7 @@
 import flask
 from mockidp import app
 
-from mockidp.auth import login_user, LOGIN_SUCCESS
+from mockidp.core.auth import login_user, LOGIN_SUCCESS
 from mockidp.config import parse_config, locate_config_file
 from mockidp.session import get_session
 

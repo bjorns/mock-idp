@@ -1,7 +1,7 @@
 # coding: utf-8
 from nose.tools import eq_, ok_
 
-from mockidp.auth import login_user, LOGIN_SUCCESS, LOGIN_FAIL
+from mockidp.core.auth import login_user, LOGIN_SUCCESS, LOGIN_FAIL
 
 config = {'users': {
     'charlie': {

@@ -10,3 +10,7 @@ build
 
 *.egg-info
 .DS_Store
+dist
+
+# Ignore if testing config file
+mockidp.yaml

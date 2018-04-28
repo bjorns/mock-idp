@@ -25,7 +25,7 @@ Mock-idp requires python 3.6 and pip
 
 ## Configuration
 
-All system config is located in mockidp/resources/default_config.yaml. 
+All system config is located in mockidp/resources/default_config.yaml.
 
 ### Service providers
 
@@ -43,6 +43,12 @@ providers session is needed. It has two values
     browser will make access this so if you are running the service inside
     a virtual machine the address only needs to be accessible to the browser.
 
+#### Certificate keys
+
+To generate a service provider Certificate
+    $ openssl genrsa -out saml.pem 2048 # Generate private key
+    $ openssl req -new -key saml.pem -out saml.csr
+    $ openssl x509 -req -days 365 -in saml.csr -signkey saml.pem -out saml.crt
 
 ### Users
 
@@ -61,7 +67,7 @@ by the IDP:
 ## Configuring a generic Service Provider
 
 * Mock-IDP supports the POST binding protocol of SAML2.0.
-* By default mock-idp runs on port 5000 and the binding path is /saml. 
+* By default mock-idp runs on port 5000 and the binding path is /saml.
 * the response message provides four attributes:
     - uid: The username
     - email: the user email address

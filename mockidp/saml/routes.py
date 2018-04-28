@@ -3,7 +3,7 @@ from mockidp import app
 
 from mockidp.core.auth import login_user, LOGIN_SUCCESS
 from mockidp.config import parse_config, locate_config_file
-from mockidp.session import get_session
+from mockidp.core.session import get_session
 
 from .request import parse_request
 from .response import create_auth_response

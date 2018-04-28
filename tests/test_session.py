@@ -3,7 +3,7 @@ from nose.tools import eq_, ok_
 
 from mockidp.saml.request import SAMLRequest
 
-from mockidp.session import get_session
+from mockidp.core.session import get_session
 
 
 def test_get_session():

@@ -3,7 +3,7 @@ import time
 
 from nose.tools import ok_
 
-from mockidp.response import saml_timestamp
+from mockidp.saml.response import saml_timestamp
 
 
 def test_saml_timestamp():

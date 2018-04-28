@@ -3,7 +3,7 @@ import base64
 
 from nose.tools import eq_
 
-from mockidp.request import parse_request
+from mockidp.saml.request import parse_request
 
 INPUT = """<samlp:AuthnRequest xmlns:samlp="urn:oasis:names:tc:SAML:2.0:protocol"
     Version="2.0"

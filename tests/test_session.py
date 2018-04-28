@@ -1,7 +1,8 @@
 # coding: utf-8
 from nose.tools import eq_, ok_
 
-from mockidp.request import SAMLRequest
+from mockidp.saml.request import SAMLRequest
+
 from mockidp.session import get_session
 
 

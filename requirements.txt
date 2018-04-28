@@ -1,3 +1,4 @@
+jinja2
 flask
 lxml
 PyYAML>=3.12

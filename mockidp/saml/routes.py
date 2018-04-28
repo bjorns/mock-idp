@@ -28,6 +28,21 @@ def begin_login():
     return response
 
 
+@app.route('/saml', methods=['GET'])
+def begin_login_get():
+    saml_request = flask.request.args['SAMLRequest']
+    print(f"Got saml_request {saml_request}")
+
+    req = parse_request(saml_request)
+
+    print(f"Storing request {req.id}")
+    open_saml_requests[req.id] = req
+
+    response = flask.make_response(flask.redirect("/saml/login", code=302))
+    response.set_cookie('mockidp_request_id', value=req.id)
+    return response
+
+
 @app.route('/saml/login', methods=['GET'])
 def login_view():
     return flask.render_template('login.html')

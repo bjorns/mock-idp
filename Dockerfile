@@ -1,4 +1,15 @@
-FROM python:3.6
+FROM alpine:3.6
+RUN apk update
+RUN apk upgrade
+
+RUN apk add py3-cffi
+RUN apk add py3-openssl
+RUN apk add py3-cryptography
+
+RUN apk add --update py3-lxml
+
+RUN rm -rf /var/cache/apk/*
+
 
 RUN mkdir -p /usr/local/mock-idp
 WORKDIR /usr/local/mock-idp

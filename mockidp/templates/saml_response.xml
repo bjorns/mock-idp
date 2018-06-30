@@ -15,29 +15,33 @@
         <saml:Issuer>http://localhost:5000/metadata</saml:Issuer>
         <ds:Signature Id="placeholder" />
         <saml:Subject>
-            <saml:NameID SPNameQualifier="http://sp.example.com/demo1/metadata.php" Format="urn:oasis:names:tc:SAML:2.0:nameid-format:transient">_ce3d2948b4cf20146dee0a0b3dd6f69b6cf86f62d7</saml:NameID>
+            <saml:NameID SPNameQualifier="http://sp.example.com/demo1/metadata.php" Format="urn:oasis:names:tc:SAML:2.0:nameid-format:transient">
+                {{ user.username }}
+            </saml:NameID>
             <saml:SubjectConfirmation Method="urn:oasis:names:tc:SAML:2.0:cm:bearer">
                 <saml:SubjectConfirmationData NotOnOrAfter="2024-01-18T06:21:48Z" Recipient="http://sp.example.com/demo1/index.php?acs" InResponseTo="ONELOGIN_4fee3b046395c4e751011e97f8900b5273d56685"/>
             </saml:SubjectConfirmation>
         </saml:Subject>
         <saml:AttributeStatement>
-            <saml:Attribute Name="email">
-                <saml:AttributeValue>{{ user.email }}</saml:AttributeValue>
-            </saml:Attribute>
-            <saml:Attribute Name="uid" NameFormat="urn:oasis:names:tc:SAML:2.0:attrname-format:basic">
+            <saml:Attribute Name="http://schemas.microsoft.com/ws/2008/06/identity/claims/windowsaccountname" NameFormat="urn:oasis:names:tc:SAML:2.0:attrname-format:basic">
                 <saml:AttributeValue xsi:type="xs:string">{{ user.username }}</saml:AttributeValue>
             </saml:Attribute>
-            <saml:Attribute Name="firstName" NameFormat="urn:oasis:names:tc:SAML:2.0:attrname-format:basic">
+            <saml:Attribute Name="http://schemas.xmlsoap.org/ws/2005/05/identity/claims/emailaddress">
+                <saml:AttributeValue>{{ user.email }}</saml:AttributeValue>
+            </saml:Attribute>
+            <saml:Attribute Name="http://schemas.xmlsoap.org/ws/2005/05/identity/claims/givenname" NameFormat="urn:oasis:names:tc:SAML:2.0:attrname-format:basic">
                 <saml:AttributeValue xsi:type="xs:string">{{ user.first_name }}</saml:AttributeValue>
             </saml:Attribute>
-            <saml:Attribute Name="lastName" NameFormat="urn:oasis:names:tc:SAML:2.0:attrname-format:basic">
+            <saml:Attribute Name="http://schemas.xmlsoap.org/ws/2005/05/identity/claims/surname" NameFormat="urn:oasis:names:tc:SAML:2.0:attrname-format:basic">
                 <saml:AttributeValue xsi:type="xs:string">{{ user.last_name }}</saml:AttributeValue>
             </saml:Attribute>
-            <saml:Attribute Name="groupMembership" NameFormat="urn:oasis:names:tc:SAML:2.0:attrname-format:basic">
-                {% for role in user.roles -%}
-                <saml:AttributeValue xsi:type="xs:string">{{ role }}</saml:AttributeValue>
-                {% endfor -%}
+                        
+            {% for attrib in user.attributes -%}
+            <saml:Attribute Name="{{ attrib.attribute }}">
+                <saml:AttributeValue xsi:type="xs:string">{{ attrib.value }}</saml:AttributeValue>
             </saml:Attribute>
+            {% endfor -%}
+            
         </saml:AttributeStatement>
         <saml:Conditions>
             <saml:AudienceRestriction>

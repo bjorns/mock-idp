@@ -15,7 +15,16 @@ RUN mkdir -p /usr/local/mock-idp
 WORKDIR /usr/local/mock-idp
 
 COPY requirements.txt ./
-COPY . .
+COPY bin ./bin
+COPY mockidp ./mockidp
+COPY doc ./doc
+COPY tests ./tests
+
+COPY mockidp.yaml .
+COPY README.md .
+COPY requirements.txt .
+COPY setup.py .
+
 
 RUN pip3 install -r requirements.txt
 RUN pip3 install -e .

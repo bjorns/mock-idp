@@ -1,3 +1,5 @@
+VERSION:=0.2.1
+
 all: dist
 
 clean:
@@ -19,8 +21,12 @@ test:
 	nosetests-3.4  --with-coverage --cover-package=mockidp --cover-min-percentage=80 --cover-html --cover-html-dir=build/test_reports
 
 docker-image:
-	docker build -t mock-idp .
+	docker build -t bjornskoglund/mock-idp:$(VERSION) .
+
+docker-release: docker-image
+	docker push bjornskoglund/mock-idp:$(VERSION)
 
 docker-run: docker-image
 	docker run -p 5000:5000 mock-idp
+
 .PHONY: all clean dist lint test

@@ -80,4 +80,5 @@ by the IDP:
 
 Mock-IDP has been tested with the following service providers
 
-    * Adobe Experience Manager (AEM) 6.2
+* Adobe Experience Manager (AEM) 6.2
+* Node.js - [saml2-js](https://www.npmjs.com/package/saml2-js) package

@@ -20,7 +20,7 @@ COPY mockidp ./mockidp
 COPY doc ./doc
 COPY tests ./tests
 
-COPY mockidp.yaml .
+COPY ./mockidp/resources/default_config.yaml mockidp.yaml
 COPY README.md .
 COPY requirements.txt .
 COPY setup.py .

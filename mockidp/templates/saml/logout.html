@@ -1,0 +1,30 @@
+<!DOCTYPE html PUBLIC '-//W3C//DTD XHTML 1.0 Transitional//EN'
+        'http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd'>
+<html xmlns='http://www.w3.org/1999/xhtml' xml:lang='en' lang='en'>
+<head>
+    <meta http-equiv='content-type' content='text/html; charset=utf-8'/>
+    <title>POST data</title>
+    <script>
+        function setRequestPathCookies() {
+            var requestPath = window.location.pathname + window.location.search + window.location.hash;
+            document.cookie = "saml_request_path=\"+encodeURIComponent(requestPath)+\";path=/;";
+        }
+    </script>
+</head>
+
+<body onload="setRequestPathCookies(); document.forms[0].submit();">
+    <img src="/img/loading.gif" style="position:absolute; top:50%; left:50%; margin-top:-145px; margin-left:-220px;"/>
+
+    <noscript>
+        <p>
+            <strong>Note:</strong> Since your browser does not support JavaScript, you must press the button below once to
+            proceed.
+        </p>
+    </noscript>
+    <form method="POST" action="{{ post_url }}">
+        <noscript><input type='submit' value='Submit'/></noscript>
+        <input type="hidden" name="SAMLResponse" value="{{ saml_response }}">
+    </form>
+</body>
+
+</html>

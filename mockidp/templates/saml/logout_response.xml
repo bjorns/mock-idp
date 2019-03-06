@@ -1,0 +1,34 @@
+<samlp:LogoutResponse Version="2.0" 
+        xmlns:samlp="urn:oasis:names:tc:SAML:2.0:protocol"
+        Consent="urn:oasis:names:tc:SAML:2.0:consent:unspecified" 
+        ID="{{ session.id }}" 
+        IssueInstant="{{ session.created|timestamp }}" 
+        Destination="{{ destination }}" 
+        InResponseTo="{{ session.request_id }}">
+    <Issuer xmlns="urn:oasis:names:tc:SAML:2.0:assertion">
+        http://mockidp:5000/services/trust
+    </Issuer>
+    <!-- ds:Signature xmlns:ds="http://www.w3.org/2000/09/xmldsig#">
+        <ds:SignedInfo>
+            <ds:CanonicalizationMethod Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#" />
+            <ds:SignatureMethod Algorithm="http://www.w3.org/2001/04/xmldsig-more#rsa-sha256" />
+            <ds:Reference URI="#_c0c36b58-4e17-4cfd-8097-c3a6fa21399d">
+                <ds:Transforms>
+                    <ds:Transform Algorithm="http://www.w3.org/2000/09/xmldsig#enveloped-signature" />
+                    <ds:Transform Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#" />
+                </ds:Transforms>
+                <ds:DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha256" />
+                <ds:DigestValue>ZRw26OCJKJAnJHVRHbgHaTBZ/6ZnCRpepf0vLNOhcvk=</ds:DigestValue>
+            </ds:Reference>
+        </ds:SignedInfo>
+        <ds:SignatureValue>TTIPt0OEF1zgIH9GLeiTUAFHuAXzmMzbyMitxI3Fwxe1XKaox/60z2etDFaUeFkoJt5rbxIzTmZ0r41xhbjlARuKblffzWAUrDftfk7rsKxClILLJwU5uXpCprcJlVfOg5hIjvFqhS1ARqK9Z4RQRP7pHiGlf+hrC76SAepKEi8Pb3DbnNjUkgqng0LRMVUZ1+nQexUpDeyR2+poQY9PuvQVVGZoOxLEHFvj+uqi6Ydf3dfb4Zed+q+LxBIQySdwebU2DJJRotaWwFksRA32F3zdOII9JSxNYW8Mjr3sDUm6qDmb2wgOEYTF+4lTx0YCJqexGOUTLwyl06+yLhkrrw==</ds:SignatureValue>
+        <KeyInfo xmlns="http://www.w3.org/2000/09/xmldsig#">
+            <ds:X509Data>
+                <ds:X509Certificate>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</ds:X509Certificate>
+            </ds:X509Data>
+        </KeyInfo>
+    </ds:Signature -->
+    <samlp:Status>
+        <samlp:StatusCode Value="urn:oasis:names:tc:SAML:2.0:status:Success" />
+    </samlp:Status>
+</samlp:LogoutResponse>

@@ -23,6 +23,11 @@ def get_session(user, request):
         _sessions[username] = session
         return session
 
+def retrieve_session(username):
+    if has_session(username):
+        return _sessions[username]
+    else:
+        raise Exception(f'Failed to locate session for {username}')
 
 def has_session(username):
     return username in _sessions

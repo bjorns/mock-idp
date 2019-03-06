@@ -1,11 +1,11 @@
 import flask
 from mockidp import app
 
-from mockidp.core.auth import login_user, LOGIN_SUCCESS
-from mockidp.core.session import get_session
+from mockidp.core.auth import login_user, logout_user, LOGIN_SUCCESS
+from mockidp.core.session import get_session, retrieve_session
 
 from .request import parse_request
-from .response import create_auth_response
+from .response import create_auth_response, create_logout_response
 
 open_saml_requests = dict()
 conf = None
@@ -66,3 +66,27 @@ def authenticate():
     else:
         flask.flash(f"Incorrect username or password {username}")
         return flask.redirect("/saml/login", code=302)
+
+
+@app.route('/saml/logout', methods=['GET'])
+def logout_view():
+    """ <?xml version="1.0"?>
+        <samlp:LogoutRequest xmlns:samlp="urn:oasis:names:tc:SAML:2.0:protocol" 
+                xmlns:saml="urn:oasis:names:tc:SAML:2.0:assertion" ID="_de4a72a1d3fd94ba287289b5b81987884320a6d5eb"
+                Version="2.0" 
+                IssueInstant="2019-03-06T18:32:52.137Z" 
+                Destination="http://mockidp:5000/saml/logout">
+            <saml:Issuer>local:onehope:web</saml:Issuer>
+            <saml:NameID Format="urn:oasis:names:tc:SAML:2.0:nameid-format:persistent">charlie</saml:NameID>
+            <samlp:SessionIndex>
+                _be9967abd904ddcae3c0eb4189adbe3f71e327cf93
+            </samlp:SessionIndex>
+        </samlp:LogoutRequest> """
+    saml_request = flask.request.args['SAMLRequest']
+    req = parse_request(saml_request)
+    username = req.name_id
+    print("Logging out {}".format(username))
+    session = retrieve_session(username)
+    print(" Session is {}".format(session))
+    url, saml_response = create_logout_response(conf, session)
+    return flask.render_template('saml/logout.html', post_url=url, saml_response=saml_response)

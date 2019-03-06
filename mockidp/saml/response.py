@@ -62,3 +62,26 @@ def render_response(session, user):
     response = template.render(params)
 
     return response
+
+
+def create_logout_response(config, session):
+    rendered_response = render_logout_response(config, session.user, session)
+
+    signed_response = sign_assertions(rendered_response)
+
+    encoded_response = base64.b64encode(signed_response).decode('utf-8')
+
+    service_provider = get_service_provider(config, session.sp_entity_id)
+    url = service_provider['logout_url']
+    return url, encoded_response
+
+
+def render_logout_response(config, user, session):
+    template = env.get_template('saml/logout_response.xml')
+    params = dict(
+        config=config,
+        session=session,
+        user=user
+    )
+    response = template.render(params)
+    return response

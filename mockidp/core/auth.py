@@ -4,7 +4,7 @@ LOGIN_FAIL = 1
 
 
 def login_user(config, username, password):
-    """ ... """
+    """ Authenticate user """
 
     user = config['users'].get(username)
     if user is None:
@@ -16,3 +16,9 @@ def login_user(config, username, password):
         print(f"Successfully logged in {username}")
         return LOGIN_SUCCESS, user
     return LOGIN_FAIL, None
+
+def logout_user(config, username):
+    """ Logout user """
+    user = config['users'].get(username)
+    user['username'] = username
+    return LOGIN_SUCCESS, None

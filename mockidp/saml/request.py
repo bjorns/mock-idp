@@ -7,10 +7,10 @@ from lxml import etree
 
 
 class SAMLRequest:
-    def __init__(self, _id, sp_entity_id=None):
+    def __init__(self, _id, sp_entity_id=None, name_id=None):
         self.id = _id
         self.sp_entity_id = sp_entity_id
-
+        self.name_id = name_id
 
 def try_deflate(request_body):
     try:
@@ -24,8 +24,8 @@ def parse_request(request_body):
     """ Expectes the source base64 encoded SAMLRequest header """
     request_xml = b64decode(request_body)
     request_xml = try_deflate(request_xml)
-
     srcbuf = BytesIO(request_xml)
+
     doc = etree.parse(srcbuf)
 
     req = _parse_request_xml(doc)
@@ -37,5 +37,8 @@ def _parse_request_xml(doc):
     root_node = doc.getroot()
     _id = root_node.get('ID')
     sp_entity_id = root_node.find('{urn:oasis:names:tc:SAML:2.0:assertion}Issuer').text
-    saml_request = SAMLRequest(_id, sp_entity_id)
+    name_id_node = root_node.find('{urn:oasis:names:tc:SAML:2.0:assertion}NameID')
+    
+    name_id = getattr(name_id_node, 'text', '')
+    saml_request = SAMLRequest(_id, sp_entity_id, name_id)
     return saml_request

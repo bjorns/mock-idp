@@ -64,6 +64,14 @@ by the IDP:
         roles:
           - administrators
 
+### Import local config into a docker container
+
+Provided you have produced your config file containing service providers and user account information. You can inject into a docker container by the following:
+
+    $ docker run -p 5000:5000 -v <absolute path to your config>.yaml:/usr/local/mock-idp/mockidp/resources/default_config.yaml bjornskoglund/mock-idp:0.2.1
+
+Copy the *cert/cert.pem* file into your Service Provider (_SP_), and be sure that the _ISSUER_ (entity id) provided by the _SP_ matches the _name:_ of the Service Provider in your config.
+
 ## Configuring a generic Service Provider
 
 * Mock-IDP supports the POST binding protocol of SAML2.0.

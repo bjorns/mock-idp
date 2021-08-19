@@ -3,7 +3,7 @@
     xmlns:samlp="urn:oasis:names:tc:SAML:2.0:protocol"
     xmlns:saml="urn:oasis:names:tc:SAML:2.0:assertion"
     xmlns:ds="http://www.w3.org/2000/09/xmldsig#"
-    ID="{{ session.id }}" InResponseTo="{{ session.request_id }}" IssueInstant="{{ session.created|timestamp }}"
+    ID="{{ session.id }}" InResponseTo="{{ session.request_id }}" IssueInstant="{{ issue_instant }}"
     Version="2.0">
 
     <saml:Issuer>http://localhost:5000/metadata</saml:Issuer>
@@ -11,7 +11,7 @@
         <samlp:StatusCode Value="urn:oasis:names:tc:SAML:2.0:status:Success"/>
     </samlp:Status>
     <saml:Assertion xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xs="http://www.w3.org/2001/XMLSchema"
-            ID="{{ session.id }}-4711" IssueInstant="{{ session.created|timestamp }}" Version="2.0">
+            ID="{{ session.id }}-4711" IssueInstant="{{ issue_instant }}" Version="2.0">
         <saml:Issuer>http://localhost:5000/metadata</saml:Issuer>
         <ds:Signature Id="placeholder" />
         <saml:Subject>

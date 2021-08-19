@@ -1,6 +1,7 @@
 # coding: utf-8
 import base64
 import time
+import datetime
 import pkg_resources
 
 from jinja2 import Environment, PackageLoader, select_autoescape
@@ -55,7 +56,9 @@ def create_auth_response(config, session):
 
 def render_response(session, user):
     template = env.get_template('saml_response.xml')
+    issue_instant = get_issue_instant(session)
     params = dict(
+        issue_instant=issue_instant,
         session=session,
         user=user
     )
@@ -78,10 +81,18 @@ def create_logout_response(config, session):
 
 def render_logout_response(config, user, session):
     template = env.get_template('saml/logout_response.xml')
+    issue_instant = get_issue_instant(session)
     params = dict(
         config=config,
+        issue_instant=issue_instant,
         session=session,
         user=user
     )
     response = template.render(params)
     return response
+
+def get_issue_instant(session):
+    # session.created is set using time.getTime().
+    # But IssueInstant is expected to be in UTC form of ISO-8601 format
+    issue_instant = datetime.datetime.fromtimestamp(session.created).replace(tzinfo=datetime.timezone.utc, microsecond=0).isoformat()
+    return issue_instant

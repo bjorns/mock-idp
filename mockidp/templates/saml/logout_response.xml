@@ -2,7 +2,7 @@
         xmlns:samlp="urn:oasis:names:tc:SAML:2.0:protocol"
         Consent="urn:oasis:names:tc:SAML:2.0:consent:unspecified" 
         ID="{{ session.id }}" 
-        IssueInstant="{{ session.created|timestamp }}" 
+        IssueInstant="{{ issue_instant }}" 
         Destination="{{ destination }}" 
         InResponseTo="{{ session.request_id }}">
     <Issuer xmlns="urn:oasis:names:tc:SAML:2.0:assertion">

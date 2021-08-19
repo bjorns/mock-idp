@@ -34,7 +34,7 @@ def sign_assertions(response_str):
     key = read_bytes("keys/key.pem")
     for e in response_element.findall('{urn:oasis:names:tc:SAML:2.0:assertion}Assertion'):
         signer = XMLSigner(c14n_algorithm="http://www.w3.org/2001/10/xml-exc-c14n#",
-                           signature_algorithm='rsa-sha1', digest_algorithm='sha1')
+                           signature_algorithm='rsa-sha256', digest_algorithm='sha256')
         signed_e = signer.sign(e, key=key, cert=cert)
         response_element.replace(e, signed_e)
     return etree.tostring(response_element, pretty_print=True)

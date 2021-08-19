@@ -28,4 +28,4 @@ def main(argv):
         print(f"Loaded user {username}")
 
     sys.stdout.flush()
-    app.run(debug=options.debug, host="0.0.0.0", port=options.port)
+    app.run(debug=options.debug, host="127.0.0.1", port=options.port)

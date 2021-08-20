@@ -1,4 +1,5 @@
 # coding: utf-8
+import logging
 import yaml
 import os
 import pkg_resources
@@ -11,7 +12,7 @@ GLOBAL_CONFIG = "/etc/mockidp.yaml"
 def locate_config_file():
     """ Return a path to a config to use accoding to standard preference rules """
 
-    print(f"Checking if ${LOCAL_CONFIG} is a file")
+    logging.info("Checking if %s is a file", LOCAL_CONFIG)
     if os.path.isfile(LOCAL_CONFIG):
         return LOCAL_CONFIG
     if os.path.isfile(HOME_DIR_CONFIG):

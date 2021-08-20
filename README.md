@@ -19,7 +19,7 @@ Install and run mock-idp using Pip:
     $ mock-idp
     ...
 
-## Configuration
+## Configuration File
 
 To override the system configuration create a config file. The service loads 
 config files in the following order:
@@ -29,7 +29,7 @@ config files in the following order:
 3. `/etc/mockidp.yaml` in the global config directory
 4. internal default config file shipped with the service package
 
-Here is a sample (copy of built in config) file to start with:
+Here is a sample (copy of built-in config) file to start with:
 
 ```
 service_providers:
@@ -74,22 +74,6 @@ the service providers section of the config is needed. It has two values:
 * **response_url** is the public url of the service provider. Once login has
     been completed, the browser will be redirected to this url.
 
-#### Certificate keys
-
-To generate a service provider Certificate, run the following commands:
-
-    $ openssl genrsa -out saml.pem 2048
-    $ openssl req -new -key saml.pem -out saml.csr
-    $ openssl x509 -req -days 365 -in saml.csr -signkey saml.pem -out saml.crt
-
-This will produce three files:
-
-* _saml.pem_ - The private key
-* _saml.csr_ - The certificate signing request
-* _saml.crt_ - The final certificate
-
-TODO - Add info on how to install/use these certificates.
-
 ### Users
 
 Users is a fairly self explanatory list of user credentials recognized
@@ -104,14 +88,6 @@ by the IDP:
         roles:
           - administrators
 
-### Import local config into a docker container
-
-Provided you have produced your config file containing service providers and user account information. You can inject into a docker container by the following:
-
-    $ docker run -p 5000:5000 -v <absolute path to your config>.yaml:/usr/local/mock-idp/mockidp/resources/default_config.yaml bjornskoglund/mock-idp:0.2.1
-
-Copy the *cert/cert.pem* file into your Service Provider (_SP_), and be sure that the _ISSUER_ (entity id) provided by the _SP_ matches the _name:_ of the Service Provider in your config.
-
 ## Configuring a generic Service Provider
 
 * Mock-IDP supports the POST binding protocol of SAML2.0.
@@ -123,16 +99,49 @@ Copy the *cert/cert.pem* file into your Service Provider (_SP_), and be sure tha
     - lastName: The users last name
 * The logout path is /saml/logout
 
+### Certificate keys
+
+To generate a service provider Certificate, run the following commands:
+
+    $ openssl genrsa -out saml.pem 2048
+    $ openssl req -new -key saml.pem -out saml.csr
+    $ openssl x509 -req -days 365 -in saml.csr -signkey saml.pem -out saml.crt
+
+This will produce three files:
+
+* _saml.pem_ - The private key
+* _saml.csr_ - The certificate signing request
+* _saml.crt_ - The final certificate
+
+Refer to your service provider documentation on how to install the certificate.
+
+## Running using Docker
+
+### Import local config into a docker container
+
+Provided you have produced your config file containing service providers and 
+user account information. You can inject into a docker container by the
+following:
+
+    $ docker run -p 5000:5000 -v <absolute path to your config>.yaml:/usr/local/mock-idp/mockidp/resources/default_config.yaml bjornskoglund/mock-idp:0.2.1
+
+Copy the *cert/cert.pem* file into your Service Provider (_SP_), and be sure
+that the _ISSUER_ (entity id) provided by the _SP_ matches the _name:_ of the
+Service Provider in your config.
+
+
 ## Development
 
-### Run from source
+Install dependencies with pip
+
+    $ pip3 install -r requirements.txt
+
+Run from source:
 
     $ git clone
     $ cd mock-idp
     $ ./bin/mock-idp
     ...
-
-### Configuration
 
 All system config is located in mockidp/resources/default_config.yaml.
 

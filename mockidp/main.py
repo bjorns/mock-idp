@@ -6,7 +6,7 @@ from optparse import OptionParser
 from mockidp import app
 from mockidp import core, saml
 
-logging.basicConfig(level=logging.INFO)
+logging.basicConfig(level=logging.INFO, force=True)
 
 
 def main(argv):
@@ -18,7 +18,7 @@ def main(argv):
     parser.add_option("-p", "--port",
                       dest="port", default=5000,
                       help="Listen on port")
-    parser.add_option("-h", "--host",
+    parser.add_option("-H", "--host",
                       dest="host", default='127.0.0.1',
                       help="Listen on hostname")
 

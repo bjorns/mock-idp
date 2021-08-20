@@ -132,15 +132,18 @@ Service Provider in your config.
 
 ## Development
 
-Install dependencies with pip
+### Setup
+Install pipenv with pip to handle dependencies
 
     $ pip3 install -r requirements.txt
+  
+then install environment
+
+    $ pipenv install
 
 Run from source:
 
-    $ git clone
-    $ cd mock-idp
-    $ ./bin/mock-idp
+    $ pipenv run ./bin/mock-idp
     ...
 
 All system config is located in mockidp/resources/default_config.yaml.

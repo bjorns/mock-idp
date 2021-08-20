@@ -8,6 +8,10 @@ clean:
 	find . | grep \.pyc$ | xargs rm -rf
 	find . | grep __pycache__ | xargs rm -rf
 
+.pipenv: Pipfile Pipfile.lock
+	pipenv install --dev
+	touch $@
+
 dist: clean .pipenv
 	pipenv run python setup.py bdist_wheel
 
@@ -16,10 +20,6 @@ test_release: dist
 
 release: dist
 	pipenv run twine upload -r pypi dist/*
-
-.pipenv: Pipfile Pipfile.lock
-	pipenv install --dev
-	touch $@
 
 test: .pipenv
 	pipenv run nosetests  --with-coverage --cover-package=mockidp --cover-min-percentage=80 --cover-html --cover-html-dir=build/test_reports

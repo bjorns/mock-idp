@@ -1,6 +1,7 @@
 service_providers:
   - name: "local:aem:author"
     response_url: "http://localhost:14502/saml_login"
+    logout_url: "http://localhost:14502/saml_logout"
 
 users:
   charlie:

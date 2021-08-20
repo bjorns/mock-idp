@@ -14,3 +14,6 @@ dist
 
 # Ignore if testing config file
 mockidp.yaml
+
+# virtual environment
+venv

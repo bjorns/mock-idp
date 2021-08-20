@@ -13,7 +13,7 @@ Mock-idp requires python 3.6 and pip
 
 ## Installation
 
-Install mock-idp using
+Install and run mock-idp using Pip:
 
     $ pip3 install mock-idp
     $ mock-idp
@@ -29,7 +29,7 @@ config files in the following order:
 3. `/etc/mockidp.yaml` in the global config directory
 4. internal default config file shipped with the service package
 
-Here is a sample file to start with:
+Here is a sample (copy of built in config) file to start with:
 
 ```
 service_providers:
@@ -61,26 +61,34 @@ users:
 
 ### Service providers
 
-For each service provider (client) that uses the idp an entry in the service
-providers session is needed. It has two values
+For each service provider (client) that uses the identity provider, an entry in
+the service providers section of the config is needed. It has two values:
 
     service_providers:
       - name: "local:aem:author"
         response_url: "http://localhost:14502/saml_login"
 
 
-* **name** is the service provider entity id that the service provider sends which
-    each request.
-* **response_url** is the public url of the service provider. The client web
-    browser will make access this so if you are running the service inside
-    a virtual machine the address only needs to be accessible to the browser.
+* **name** is the service provider entity id that the service provider sends
+    with each request.
+* **response_url** is the public url of the service provider. Once login has
+    been completed, the browser will be redirected to this url.
 
 #### Certificate keys
 
-To generate a service provider Certificate
-    $ openssl genrsa -out saml.pem 2048 # Generate private key
+To generate a service provider Certificate, run the following commands:
+
+    $ openssl genrsa -out saml.pem 2048
     $ openssl req -new -key saml.pem -out saml.csr
     $ openssl x509 -req -days 365 -in saml.csr -signkey saml.pem -out saml.crt
+
+This will produce three files:
+
+* _saml.pem_ - The private key
+* _saml.csr_ - The certificate signing request
+* _saml.crt_ - The final certificate
+
+TODO - Add info on how to install/use these certificates.
 
 ### Users
 

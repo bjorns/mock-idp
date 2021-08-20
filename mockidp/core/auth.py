@@ -1,4 +1,6 @@
 # coding: utf-8
+import logging
+
 LOGIN_SUCCESS = 0
 LOGIN_FAIL = 1
 
@@ -8,12 +10,12 @@ def login_user(config, username, password):
 
     user = config['users'].get(username)
     if user is None:
-        print(f"error: Requested user '{username}' does not exist. Options are {list(config['users'].keys())}")
+        logging.error(" Requested user '%s' does not exist. Options are %s", username, list(config['users'].keys()))
         return LOGIN_FAIL, None
 
     user['username'] = username
     if user['password'] == password:
-        print(f"Successfully logged in {username}")
+        logging.info("Successfully logged in %s", username)
         return LOGIN_SUCCESS, user
     return LOGIN_FAIL, None
 

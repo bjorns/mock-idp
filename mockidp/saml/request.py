@@ -1,4 +1,5 @@
 # coding: utf-8
+import logging
 import zlib
 from base64 import b64decode
 from io import BytesIO
@@ -16,7 +17,7 @@ def try_deflate(request_body):
     try:
         return zlib.decompress(request_body, -15)
     except Exception as e:
-        print(e)
+        logging.exception("Failed to defalate")        
         return request_body
 
 

@@ -1,11 +1,12 @@
 #!/usr/bin/env python3
+import logging
 import flask
 from mockidp import app
 
 from mockidp.core.config import parse_config, locate_config_file
 
 config_filename = locate_config_file()
-print(f"Loading config {config_filename}")
+logging.info("Loading config %s", config_filename)
 conf = parse_config(config_filename)
 open_saml_requests = dict()
 

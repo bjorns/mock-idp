@@ -1,13 +1,16 @@
 # coding: utf-8
+import logging
 import sys
 from optparse import OptionParser
 
 from mockidp import app
 from mockidp import core, saml
 
+logging.basicConfig(level=logging.INFO, force=True)
+
 
 def main(argv):
-    print("Running option parser")
+    logging.info("Running option parser")
     parser = OptionParser()
     parser.add_option("-d", "--debug",
                       action="store_true", dest="debug", default=False,
@@ -15,6 +18,9 @@ def main(argv):
     parser.add_option("-p", "--port",
                       dest="port", default=5000,
                       help="Listen on port")
+    parser.add_option("-H", "--host",
+                      dest="host", default='127.0.0.1',
+                      help="Listen on hostname")
 
     options, args = parser.parse_args(args=argv)
 
@@ -22,10 +28,10 @@ def main(argv):
     saml.init(conf)
 
     for sp in conf['service_providers']:
-        print(f"Known Service Provider {sp['name']}")
+        logging.info("Known Service Provider %s", sp.get('name'))
 
     for username, data in conf['users'].items():
-        print(f"Loaded user {username}")
-
-    sys.stdout.flush()
-    app.run(debug=options.debug, host="127.0.0.1", port=options.port)
+        logging.info("Loaded user %s", username)
+    
+    logging.info("Listening on %s:%s", options.host, options.port)
+    app.run(debug=options.debug, host=options.host, port=options.port)

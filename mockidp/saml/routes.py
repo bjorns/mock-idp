@@ -1,3 +1,4 @@
+import logging
 import flask
 from mockidp import app
 
@@ -21,7 +22,7 @@ def begin_login():
     saml_request = flask.request.form['SAMLRequest']
     req = parse_request(saml_request)
 
-    print(f"Storing request {req.id}")
+    logging.info("Storing request %s", req.id)
     open_saml_requests[req.id] = req
 
     response = flask.make_response(flask.redirect("/saml/login", code=302))
@@ -32,11 +33,11 @@ def begin_login():
 @app.route('/saml', methods=['GET'])
 def begin_login_get():
     saml_request = flask.request.args['SAMLRequest']
-    print(f"Got saml_request {saml_request}")
+    logging.info("Got saml_request %s", saml_request)
 
     req = parse_request(saml_request)
 
-    print(f"Storing request {req.id}")
+    logging.info("Storing request %s", req.id)
     open_saml_requests[req.id] = req
 
     response = flask.make_response(flask.redirect("/saml/login", code=302))
@@ -85,8 +86,8 @@ def logout_view():
     saml_request = flask.request.args['SAMLRequest']
     req = parse_request(saml_request)
     username = req.name_id
-    print("Logging out {}".format(username))
+    logging.info("Logging out %s", username)
     session = retrieve_session(username)
-    print(" Session is {}".format(session))
+    logging.info("Session is %s", session)
     url, saml_response = create_logout_response(conf, session)
     return flask.render_template('saml/logout.html', post_url=url, saml_response=saml_response)

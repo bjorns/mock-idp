@@ -109,9 +109,9 @@ To generate a service provider Certificate, run the following commands:
 
 This will produce three files:
 
-* _saml.pem_ - The private key
-* _saml.csr_ - The certificate signing request
-* _saml.crt_ - The final certificate
+* __saml.pem__ - The private key
+* __saml.csr__ - The certificate signing request
+* __saml.crt__ - The final certificate
 
 Refer to your service provider documentation on how to install the certificate.
 

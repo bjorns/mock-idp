@@ -8,17 +8,21 @@ clean:
 	find . | grep \.pyc$ | xargs rm -rf
 	find . | grep __pycache__ | xargs rm -rf
 
-dist: clean
-	python3 setup.py bdist_wheel
+dist: clean .pipenv
+	pipenv run python setup.py bdist_wheel
 
 test_release: dist
-	twine upload -r pypitest dist/*
+	pipenv run twine upload -r pypitest dist/*
 
 release: dist
-	twine upload -r pypi dist/*
+	pipenv run twine upload -r pypi dist/*
 
-test:
-	nosetests-3.4  --with-coverage --cover-package=mockidp --cover-min-percentage=80 --cover-html --cover-html-dir=build/test_reports
+.pipenv: Pipfile Pipfile.lock
+	pipenv install --dev
+	touch $@
+
+test: .pipenv
+	pipenv run nosetests  --with-coverage --cover-package=mockidp --cover-min-percentage=80 --cover-html --cover-html-dir=build/test_reports
 
 docker-image:
 	docker build -t bjornskoglund/mock-idp:$(VERSION) .

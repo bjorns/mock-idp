@@ -1,0 +1,16 @@
+[[source]]
+url = "https://pypi.org/simple"
+verify_ssl = true
+name = "pypi"
+
+[packages]
+lxml = "*"
+signxml = "*"
+Jinja2 = "*"
+Flask = "*"
+PyYAML = "*"
+Flask-Script = ">=2.0.5"
+
+[dev-packages]
+nose = "*"
+twine = "*"

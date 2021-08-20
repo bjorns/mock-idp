@@ -1,7 +1,0 @@
-jinja2
-flask
-lxml
-PyYAML>=3.12
-flask-script>=2.0.5
-nose
-signxml>=2.3.0

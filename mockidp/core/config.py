@@ -25,7 +25,7 @@ def locate_config_file():
 
 def parse_config(filename):
     with open(filename) as f:
-        config = yaml.load(f)
+        config = yaml.load(f, Loader=yaml.SafeLoader)
         return config
 
 

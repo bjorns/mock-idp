@@ -7,6 +7,13 @@ LONG_DESC = """SAML 2.0 Mock Identity Provider
 ===============================
 
 Authentication testing environment for SAML2.0 service providers.
+
+Ever needed to test an SSO setup but don't have access to the IDP for whatever
+reason?
+
+Mock IDP provides a SAML2.0 IDP using POST bindings without need for a user
+database or complicated enterprise software setup.
+
 """
 
 classifiers = [
@@ -15,17 +22,10 @@ classifiers = [
     #   4 - Beta
     #   5 - Production/Stable
     'Development Status :: 4 - Beta',
-
-    # Indicate who your project is intended for
     'Intended Audience :: Developers',
     'Topic :: Software Development',
-
-    # Pick your license as you wish (should match "license" above)
     'License :: OSI Approved :: MIT License',
-
-    # Specify the Python versions you support here. In particular, ensure
-    # that you indicate whether you support Python 2, Python 3 or both.
-    "Programming Language :: Python :: 3.6"
+    "Programming Language :: Python :: 3.7"
 ]
 
 

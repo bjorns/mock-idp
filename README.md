@@ -10,22 +10,54 @@ database or complicated enterprise software setup.
 
 Mock-idp requires python 3.6 and pip
 
-## Run from source
 
-    $ git clone
-    $ cd mock-idp
-    $ ./bin/mock-idp
-    ...
+## Installation
 
-## Pip installation
+Install mock-idp using
 
-    $ pip install mock-idp
+    $ pip3 install mock-idp
     $ mock-idp
     ...
 
 ## Configuration
 
-All system config is located in mockidp/resources/default_config.yaml.
+To override the system configuration create a config file. The service loads 
+config files in the following order:
+
+1. `mockidp.yaml` in the current working directory
+2. `~/.mockidp.yaml` in your home directory
+3. `/etc/mockidp.yaml` in the global config directory
+4. internal default config file shipped with the service package
+
+Here is a sample file to start with:
+
+```
+service_providers:
+  - name: "local:service:author"
+    response_url: "http://localhost:3000/saml_login"
+
+users:
+  charlie:
+    first_name: "Charlie"
+    last_name: "Brown"
+    email: "charlie@gmail.com"
+    password: snoopy
+  linus:
+    first_name: "Linus"
+    last_name: "van Pelt"
+    email: "linus@gmail.com"
+    password: pumpkin
+  lucy:
+    password: charlie
+    first_name: "Lucy"
+    last_name: "van Pelt"
+    email: "lucy@gmail.com"
+  peppermint:
+    first_name: "Peppermint"
+    last_name: "Patty"
+    email: "peppermint@gmail.com"
+    password: peppermint
+```
 
 ### Service providers
 
@@ -82,6 +114,19 @@ Copy the *cert/cert.pem* file into your Service Provider (_SP_), and be sure tha
     - firstName: The users first name
     - lastName: The users last name
 * The logout path is /saml/logout
+
+## Development
+
+### Run from source
+
+    $ git clone
+    $ cd mock-idp
+    $ ./bin/mock-idp
+    ...
+
+### Configuration
+
+All system config is located in mockidp/resources/default_config.yaml.
 
 
 ## Compatibility

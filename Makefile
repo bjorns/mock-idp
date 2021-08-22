@@ -1,4 +1,4 @@
-VERSION:=0.4.0b0
+VERSION:=$(shell pipenv run python3 -c "from mockidp import __version__; print(__version__)")
 
 all: dist
 

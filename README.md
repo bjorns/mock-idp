@@ -119,11 +119,15 @@ Refer to your service provider documentation on how to install the certificate.
 
 ### Import local config into a docker container
 
+To run the base config just start the service and map port 5000
+
+    $ docker run -p 5000:5000 bjornskoglund/mock-idp:0.4.0
+
 Provided you have produced your config file containing service providers and 
 user account information. You can inject into a docker container by the
 following:
 
-    $ docker run -p 5000:5000 -v <absolute path to your config>.yaml:/usr/local/mock-idp/mockidp/resources/default_config.yaml bjornskoglund/mock-idp:0.2.1
+    $ docker run -p 5000:5000 -v <absolute path to your config>.yaml:/usr/local/mock-idp/mockidp.yaml bjornskoglund/mock-idp
 
 Copy the *cert/cert.pem* file into your Service Provider (_SP_), and be sure
 that the _ISSUER_ (entity id) provided by the _SP_ matches the _name:_ of the

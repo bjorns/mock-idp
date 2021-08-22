@@ -1,6 +1,6 @@
 # coding: utf-8
 import os
-from setuptools import setup
+from setuptools import setup, find_packages
 
 from mockidp import __version__
 
@@ -41,7 +41,15 @@ config = {
         'signxml',
         'nose'
     ],
-    'packages': ['mockidp'],
+    'packages': find_packages(),
+    'package_data': {'mockidp': [
+        'resources/*',
+        'resources/css/*',
+        'resources/img/*',
+        'keys/*',
+        'templates/*',
+        'templates/saml/*',
+    ]},
     'include_package_data': True,
     'scripts': ['bin/mock-idp'],
 }

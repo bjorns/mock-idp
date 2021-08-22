@@ -1,4 +1,4 @@
-VERSION:=0.2.1
+VERSION:=0.4.0b0
 
 all: dist
 
@@ -25,12 +25,12 @@ test: .pipenv
 	pipenv run nosetests  --with-coverage --cover-package=mockidp --cover-min-percentage=80 --cover-html --cover-html-dir=build/test_reports
 
 docker-image:
-	docker build -t bjornskoglund/mock-idp:$(VERSION) .
+	docker build --rm -t bjornskoglund/mock-idp:$(VERSION) .
 
 docker-release: docker-image
 	docker push bjornskoglund/mock-idp:$(VERSION)
 
 docker-run: docker-image
-	docker run -p 5000:5000 mock-idp
+	docker run -p 5000:5000 bjornskoglund/mock-idp:$(VERSION)
 
 .PHONY: all clean dist lint test

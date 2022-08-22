@@ -20,6 +20,11 @@
                 <saml:SubjectConfirmationData NotOnOrAfter="2024-01-18T06:21:48Z" Recipient="http://sp.example.com/demo1/index.php?acs" InResponseTo="ONELOGIN_4fee3b046395c4e751011e97f8900b5273d56685"/>
             </saml:SubjectConfirmation>
         </saml:Subject>
+        <saml:Conditions>
+            <saml:AudienceRestriction>
+                <saml:Audience>{{ session.sp_entity_id }}</saml:Audience>
+            </saml:AudienceRestriction>
+        </saml:Conditions>
         <saml:AttributeStatement>
             <saml:Attribute Name="http://schemas.microsoft.com/ws/2008/06/identity/claims/windowsaccountname" NameFormat="urn:oasis:names:tc:SAML:2.0:attrname-format:basic">
                 <saml:AttributeValue xsi:type="xs:string">{{ user.username }}</saml:AttributeValue>
@@ -39,13 +44,7 @@
                 <saml:AttributeValue xsi:type="xs:string">{{ attrib.value }}</saml:AttributeValue>
             </saml:Attribute>
             {% endfor -%}
-            
         </saml:AttributeStatement>
-        <saml:Conditions>
-            <saml:AudienceRestriction>
-                <saml:Audience>{{ session.sp_entity_id }}</saml:Audience>
-            </saml:AudienceRestriction>
-        </saml:Conditions>
         <saml:AuthnStatement AuthnInstant="2014-07-17T01:01:48Z" SessionNotOnOrAfter="2024-07-17T09:01:48Z"
             SessionIndex="_be9967abd904ddcae3c0eb4189adbe3f71e327cf93">
             <saml:AuthnContext>

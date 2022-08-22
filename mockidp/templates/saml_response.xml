@@ -15,7 +15,7 @@
         <saml:Issuer>http://localhost:5000/metadata</saml:Issuer>
         <ds:Signature Id="placeholder" />
         <saml:Subject>
-            <saml:NameID SPNameQualifier="http://sp.example.com/demo1/metadata.php" Format="urn:oasis:names:tc:SAML:2.0:nameid-format:transient">{{ user.username }}</saml:NameID>
+            <saml:NameID SPNameQualifier="{{ session.sp_entity_id }}" Format="urn:oasis:names:tc:SAML:2.0:nameid-format:transient">{{ user.username }}</saml:NameID>
             <saml:SubjectConfirmation Method="urn:oasis:names:tc:SAML:2.0:cm:bearer">
                 <saml:SubjectConfirmationData NotOnOrAfter="2024-01-18T06:21:48Z" Recipient="http://sp.example.com/demo1/index.php?acs" InResponseTo="ONELOGIN_4fee3b046395c4e751011e97f8900b5273d56685"/>
             </saml:SubjectConfirmation>

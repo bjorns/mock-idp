@@ -8,10 +8,11 @@ from lxml import etree
 
 
 class SAMLRequest:
-    def __init__(self, _id, sp_entity_id=None, name_id=None):
+    def __init__(self, _id, sp_entity_id=None, name_id=None, idp_id=None):
         self.id = _id
         self.sp_entity_id = sp_entity_id
         self.name_id = name_id
+        self.idp_id = idp_id
 
 def try_deflate(request_body):
     try:

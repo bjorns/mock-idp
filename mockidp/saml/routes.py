@@ -1,6 +1,6 @@
 import logging
 import flask
-from mockidp import app
+from mockidp.app import app
 
 from mockidp.core.auth import login_user, logout_user, LOGIN_SUCCESS
 from mockidp.core.session import get_session, retrieve_session

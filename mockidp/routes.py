@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 import logging
 import flask
-from mockidp import app
+from mockidp.app import app
 
 from mockidp.core.config import parse_config, locate_config_file
 

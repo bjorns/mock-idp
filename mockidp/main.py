@@ -1,10 +1,8 @@
-# coding: utf-8
 import logging
-import sys
 from optparse import OptionParser
 
-from mockidp import app
 from mockidp import core, saml
+from mockidp.app import app
 
 logging.basicConfig(level=logging.INFO, force=True)
 

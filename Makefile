@@ -1,4 +1,4 @@
-VERSION:=$(shell pipenv run python3 -c "from mockidp import __version__; print(__version__)")
+VERSION:=$(shell pipenv run python3 -c "from mockidp.__version__ import version; print(version)")
 
 all: dist
 

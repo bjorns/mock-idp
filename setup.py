@@ -1,8 +1,8 @@
-# coding: utf-8
 import os
 from setuptools import setup, find_packages
 
-from mockidp import __version__
+from mockidp.__version__ import version
+
 
 def load_readme():
     with open('./README.md') as f:
@@ -24,7 +24,7 @@ classifiers = [
 
 config = {
     'name': 'mock-idp',
-    'version': __version__,
+    'version': version,
     'description': 'Mock SAML 2.0 Identity Provider',
     'long_description': load_readme(),
     'long_description_content_type': 'text/markdown',

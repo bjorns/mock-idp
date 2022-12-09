@@ -19,7 +19,7 @@ test_release: dist
 	pipenv run twine upload -r pypitest dist/*
 
 release: dist
-	pipenv run twine upload -r pypi dist/*
+	pipenv run twine upload --verbose -r pypi dist/*
 
 test: .pipenv
 	pipenv run nosetests  --with-coverage --cover-package=mockidp --cover-min-percentage=80 --cover-html --cover-html-dir=build/test_reports

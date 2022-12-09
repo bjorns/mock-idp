@@ -10,6 +10,7 @@ class Session:
         self.user = user
         self.request_id = request.id
         self.sp_entity_id = request.sp_entity_id
+        self.idp_id = request.idp_id
         self.id = _generate_session_id(user['username'])
         self.created = time.time()
 

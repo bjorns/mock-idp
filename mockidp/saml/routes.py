@@ -36,6 +36,7 @@ def begin_login_get():
     logging.info("Got saml_request %s", saml_request)
 
     req = parse_request(saml_request)
+    req.idp_id = flask.request.base_url
 
     logging.info("Storing request %s", req.id)
     open_saml_requests[req.id] = req

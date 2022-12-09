@@ -21,7 +21,7 @@ Install and run mock-idp using Pip:
 
 ## Configuration File
 
-To override the system configuration create a config file. The service loads 
+To override the system configuration create a config file. The service loads
 config files in the following order:
 
 1. `mockidp.yaml` in the current working directory
@@ -123,7 +123,7 @@ To run the base config just start the service and map port 5000
 
     $ docker run -p 5000:5000 bjornskoglund/mock-idp:0.4.0
 
-Provided you have produced your config file containing service providers and 
+Provided you have produced your config file containing service providers and
 user account information. You can inject into a docker container by the
 following:
 
@@ -139,15 +139,15 @@ Service Provider in your config.
 ### Setup
 Install pipenv with pip to handle dependencies
 
-    $ pip3 install -r requirements.txt
-  
+    $ pip3 install pipenv
+
 then install environment
 
     $ pipenv install
 
 Run from source:
 
-    $ pipenv run ./bin/mock-idp
+    $ PYTHONPATH=. pipenv run bin/mock-idp
     ...
 
 All system config is located in mockidp/resources/default_config.yaml.

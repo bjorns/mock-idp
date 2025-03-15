@@ -1,7 +1,4 @@
-# coding: utf-8
 import base64
-
-from nose.tools import eq_
 
 from mockidp.saml.request import parse_request
 
@@ -21,5 +18,5 @@ encoded_input = base64.b64encode(INPUT)
 
 def test_parse_request():
     req = parse_request(encoded_input)
-    eq_('_2d099eab-b6bb-41fc-971a-389dec6a7ee5', req.id)
-    eq_('http://mock-sp', req.sp_entity_id)
+    assert '_2d099eab-b6bb-41fc-971a-389dec6a7ee5' ==req.id
+    assert 'http://mock-sp' == req.sp_entity_id

@@ -12,6 +12,6 @@ PyYAML = "*"
 Flask-Script = ">=2.0.5"
 
 [dev-packages]
-nose = "*"
+pytest = "*"
 twine = "*"
 setuptools = "*"

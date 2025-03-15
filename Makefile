@@ -9,7 +9,7 @@ clean:
 	find . | grep __pycache__ | xargs rm -rf
 
 test: .pipenv
-	pipenv run nosetests  --with-coverage --cover-package=mockidp --cover-min-percentage=80 --cover-html --cover-html-dir=build/test_reports
+	pipenv run pytest test/
 
 test_release: dist
 	pipenv run twine upload -r pypitest dist/*

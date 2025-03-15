@@ -9,7 +9,7 @@ clean:
 	find . | grep __pycache__ | xargs rm -rf
 
 test: .pipenv
-	pipenv run pytest test/
+	pipenv run pytest tests/
 
 test_release: dist
 	pipenv run twine upload -r pypitest dist/*

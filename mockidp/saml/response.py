@@ -2,7 +2,7 @@
 import base64
 import time
 import datetime
-import pkg_resources
+from importlib.resources import files as resource_files
 
 from jinja2 import Environment, PackageLoader, select_autoescape
 from lxml import etree
@@ -24,8 +24,8 @@ env.filters['timestamp'] = saml_timestamp
 
 
 def read_bytes(path):
-    filename = pkg_resources.resource_filename('mockidp', path)
-    return open(filename, 'rb').read()
+    filename = resource_files('mockidp') / path
+    return open(str(filename), 'rb').read()
 
 
 def sign_assertions(response_str):

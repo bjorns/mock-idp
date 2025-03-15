@@ -39,7 +39,6 @@ config = {
         'PyYAML',
         'flask-script',
         'signxml',
-        'nose'
     ],
     'packages': find_packages(),
     'package_data': {'mockidp': [

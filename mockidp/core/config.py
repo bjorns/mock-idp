@@ -2,7 +2,7 @@
 import logging
 import yaml
 import os
-import pkg_resources
+from importlib.resources import files as resource_files
 
 LOCAL_CONFIG = "{}/mockidp.yaml".format(os.path.curdir)
 HOME_DIR_CONFIG = "{}/.mockidp.yaml".format(os.path.expanduser("~"))
@@ -19,8 +19,8 @@ def locate_config_file():
         return HOME_DIR_CONFIG
     if os.path.isfile(GLOBAL_CONFIG):
         return GLOBAL_CONFIG
-    resource = pkg_resources.resource_filename('mockidp', 'resources/default_config.yaml')
-    return resource
+    resource = resource_files('mockidp') / 'resources/default_config.yaml'
+    return str(resource)
 
 
 def parse_config(filename):

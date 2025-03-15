@@ -14,3 +14,4 @@ Flask-Script = ">=2.0.5"
 [dev-packages]
 nose = "*"
 twine = "*"
+setuptools = "*"

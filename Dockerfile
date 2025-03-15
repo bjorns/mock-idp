@@ -1,4 +1,4 @@
-FROM python:3.9.6-alpine3.14
+FROM python:3.13-alpine
 RUN apk update && apk upgrade
 
 # Dev dependencies for crypto package that can be

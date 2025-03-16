@@ -18,13 +18,7 @@ RUN pip install --upgrade pip
 # cryptography is the most complicated package and if
 # install fails in pipenv the error message is not
 # clearly understandable. So we install it separately
-RUN pip install cryptography
-
-# Install environment
-COPY Pipfile .
-COPY Pipfile.lock .
-RUN pip3 install pipenv
-RUN pipenv install --system
+RUN pip install cryptography setuptools
 
 # Copy code
 COPY bin ./bin

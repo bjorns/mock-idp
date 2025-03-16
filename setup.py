@@ -34,7 +34,7 @@ config = {
     'classifiers': classifiers,
 
     'install_requires': [
-        'flask',
+        'flask==3.1.0',
         'lxml',
         'PyYAML',
         'flask-script',

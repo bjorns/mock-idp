@@ -21,7 +21,6 @@ classifiers = [
     "Programming Language :: Python :: 3.7"
 ]
 
-
 config = {
     'name': 'mock-idp',
     'version': version,
@@ -32,14 +31,20 @@ config = {
     'author': 'Björn Skoglund',
     'author_email': 'bjorn.skoglund@icloud.com',
     'classifiers': classifiers,
-
     'install_requires': [
         'flask==3.1.0',
-        'lxml',
-        'PyYAML',
-        'flask-script',
-        'signxml',
+        'lxml==5.3.1',
+        'PyYAML==6.0.2',
+        'flask-script==2.0.6',
+        'signxml==4.0.3',
     ],
+    'extras_require': {
+        'dev': [
+            'pytest==8.3.5',
+            'twine==6.1.0',
+            'setuptools==76.0.0'
+        ]
+    },
     'packages': find_packages(),
     'package_data': {'mockidp': [
         'resources/*',

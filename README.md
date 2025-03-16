@@ -8,7 +8,7 @@ database or complicated enterprise software setup.
 
 ## Prerequisites
 
-Mock-idp requires python 3.6 and pip
+Mock-idp requires python 3.9 and pip or docker
 
 
 ## Installation
@@ -91,7 +91,7 @@ by the IDP:
 ## Configuring a generic Service Provider
 
 * Mock-IDP supports the POST binding protocol of SAML2.0.
-* By default mock-idp runs on port 5000 and the binding path is /saml.
+* By default, mock-idp runs on port 5000 and the binding path is /saml.
 * the response message provides four attributes:
     - uid: The username
     - email: the user email address
@@ -137,18 +137,18 @@ Service Provider in your config.
 ## Development
 
 ### Setup
-Install pipenv with pip to handle dependencies
 
-    $ pip3 install pipenv
+Create local venv
 
-then install environment
+    $ make .venv
 
-    $ pipenv install
+Then install a developer version of the package:
+
+    $ ./.venv/bin/pip install -e .
 
 Run from source:
 
-    $ PYTHONPATH=. pipenv run bin/mock-idp
-    ...
+    $ ./.venv/bin//mock-idp --debug
 
 All system config is located in mockidp/resources/default_config.yaml.
 

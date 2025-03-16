@@ -1,0 +1,25 @@
+# Copy this file to root dir to use for development/testing
+service_providers:
+  - name: local:service:author
+    response_url: "http://localhost:3000/saml_login"
+users:
+  charlie:
+    first_name: "Charlie"
+    last_name: "Brown"
+    email: "charlie@gmail.com"
+    password: snoopy
+  linus:
+    first_name: "Linus"
+    last_name: "van Pelt"
+    email: "linus@gmail.com"
+    password: pumpkin
+  lucy:
+    password: charlie
+    first_name: "Lucy"
+    last_name: "van Pelt"
+    email: "lucy@gmail.com"
+  peppermint:
+    first_name: "Peppermint"
+    last_name: "Patty"
+    email: "peppermint@gmail.com"
+    password: peppermint

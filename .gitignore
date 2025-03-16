@@ -16,4 +16,4 @@ dist
 mockidp.yaml
 
 # virtual environment
-.pipenv
+.venv

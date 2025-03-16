@@ -1,0 +1,8 @@
+flask==3.1.0
+lxml==5.3.1
+PyYAML==6.0.2
+flask-script==2.0.6
+signxml==4.0.3
+pytest==8.3.5
+twine==6.1.0
+setuptools==76.0.0

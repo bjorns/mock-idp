@@ -1,4 +1,15 @@
-VERSION:=$(shell ./.venv/bin/python3 -c "from mockidp.__version__ import version; print(version)")
+VERSION:=$(shell python3 -c "from mockidp.__version__ import version; print(version)")
+
+# This is very mac specific, see Dockfile for Linux
+LDFLAGS:="-L$(shell brew --prefix libxmlsec1)/lib"
+LDFLAGS+="-L$(shell brew --prefix libxmlsec1)/opt/libxml2/lib"
+LDFLAGS+="-L$(shell brew --prefix libxmlsec1)/lib"
+
+
+CFLAGS:="-I$(shell brew --prefix libxmlsec1)/include $CFLAGS"
+CFLAGS+="-I$(shell brew --prefix libxmlsec1)/include"
+CFLAGS+="-I$(shell brew --prefix libxmlsec1)/opt/libxml2/include"
+CPPFLAGS:="-I$(shell brew --prefix libxmlsec1)/opt/libxml2/include"
 
 all: dist docker_image
 
@@ -24,6 +35,7 @@ dist: clean .venv
 
 .venv: requirements.txt setup.py
 	python3 -m venv --upgrade-deps --upgrade $@
+	./.venv/bin/pip install xmlsec --no-binary=:all:
 	./.venv/bin/pip install -r requirements.txt
 
 docker_release: docker_image

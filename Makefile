@@ -37,6 +37,7 @@ dist: clean .venv
 	python3 -m venv --upgrade-deps --upgrade $@
 	./.venv/bin/pip install xmlsec --no-binary=:all:
 	./.venv/bin/pip install -r requirements.txt
+	./.venv/bin/pip install -e .
 
 docker_release: docker_image
 	docker push bjornskoglund/mock-idp:$(VERSION)

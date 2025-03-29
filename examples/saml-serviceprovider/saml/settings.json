@@ -11,13 +11,13 @@
       "url": "http://localhost:8080/logout",
       "binding": "urn:oasis:names:tc:SAML:2.0:bindings:HTTP-Redirect"
     },
-    "x509cert": "",
-    "privateKey": ""
+    "x509cert": "service-provider.crt",
+    "privateKey": "private-key.pem"
   },
   "idp": {
-    "entityId": "http://localhost:5000/idp/",
+    "entityId": "http://localhost:5000/saml/auth",
     "singleSignOnService": {
-      "url": "http://localhost:5000/sso",
+      "url": "http://localhost:5000/saml",
       "binding": "urn:oasis:names:tc:SAML:2.0:bindings:HTTP-Redirect"
     },
     "x509cert": ""

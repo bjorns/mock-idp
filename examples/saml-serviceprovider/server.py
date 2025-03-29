@@ -11,10 +11,12 @@ SAML_PATH = os.path.join(os.path.dirname(__file__), 'saml')
 LOGIN_PAGE = """
 <!DOCTYPE html>
 <html>
-<head><title>Login</title></head>
+<head>
+  <title>Login</title>
+</head>
 <body>
-    <h2>Welcome to the SAML 2.0 SP</h2>
-    <form action="/login" method="post">
+    <h2>Welcome to the Onelogin SAML 2.0 Service Provider</h2>
+    <form action="/login" method="POST">
         <button type="submit">Login</button>
     </form>
 </body>

@@ -104,7 +104,7 @@ by the IDP:
 To generate a service provider Certificate, run the following commands:
 
     $ openssl genrsa -out saml.pem 2048
-    $ openssl req -new -key saml.pem -out saml.csr
+    $ openssl req -new -key saml.pem -out saml.csr -subj "/C=US/ST=New York/L=New York City/O=Some Org/OU=Some Department/CN=example.com/emailAddress=charlies@peanuts.com"
     $ openssl x509 -req -days 365 -in saml.csr -signkey saml.pem -out saml.crt
 
 This will produce three files:
@@ -142,16 +142,16 @@ Create local venv
 
     $ make .venv
 
-Then install a developer version of the package:
-
-    $ ./.venv/bin/pip install -e .
-
 Run from source:
 
-    $ ./.venv/bin//mock-idp --debug
+    $ ./.venv/bin/mock-idp --debug
 
 All system config is located in mockidp/resources/default_config.yaml.
 
+### Run SAML Example App
+
+    $ ./.venv/bin/python ./examples/saml-serviceprovider/server.py
+    $ open http://127.0.0.1:8080
 
 ## Compatibility
 

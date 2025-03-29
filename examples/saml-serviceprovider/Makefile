@@ -9,5 +9,7 @@ saml/service-provider.crt: saml/service-provider.csr saml/private-key.pem
 
 certs: saml/service-provider.crt
 
+clean:
+	rm -f saml/service-provider.crt saml/service-provider.csr saml/private-key.pem
 
-.PHONY: certs
+.PHONY: certs clean

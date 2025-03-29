@@ -1,5 +1,5 @@
 import os
-from flask import Flask, request, redirect, session, render_template_string
+from flask import Flask, request, redirect, session, render_template_string, Response
 from onelogin.saml2.auth import OneLogin_Saml2_Auth
 
 app = Flask(__name__)
@@ -62,9 +62,25 @@ def login():
     auth = init_saml_auth(req)
     return redirect(auth.login())
 
+@app.route('/metadata', methods=['GET'])
+def metadata():
+    req = prepare_flask_request()
+    auth = init_saml_auth(req)
+    saml_settings = auth.get_settings()
+    body = saml_settings.get_sp_metadata()
+    print(body)
+    errors = saml_settings.validate_metadata(body)
+    if len(errors) == 0:
+        return Response(body, status=200, mimetype='application/xml')
+    else:
+        print("Error found on Metadata: %s" % (', '.join(errors)))
+        return "", 500
+
 @app.route('/acs', methods=['POST'])
 def acs():
-    """Handles the SAML assertion response from the IdP."""
+    """
+    Assertion Consumer Service (ACS) - Handles the SAML assertion response from the IdP.
+    """
     req = prepare_flask_request()
     auth = init_saml_auth(req)
     auth.process_response()

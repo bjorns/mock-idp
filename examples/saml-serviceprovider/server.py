@@ -1,6 +1,9 @@
 import os
 from flask import Flask, request, redirect, session, render_template_string, Response
 from onelogin.saml2.auth import OneLogin_Saml2_Auth
+from jinja2 import Environment, FileSystemLoader
+
+from saml import init_ssl
 
 app = Flask(__name__)
 app.secret_key = 'supersecretkey'  # Change for production
@@ -102,4 +105,5 @@ def logout():
     return redirect('/')
 
 if __name__ == '__main__':
+    init_ssl()
     app.run(port=8080, debug=True)

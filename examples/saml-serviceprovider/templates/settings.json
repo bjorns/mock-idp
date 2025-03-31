@@ -1,0 +1,25 @@
+{
+  "strict": true,
+  "debug": true,
+  "sp": {
+    "entityId": "local:example:onelogin",
+    "assertionConsumerService": {
+      "url": "http://localhost:8080/acs",
+      "binding": "urn:oasis:names:tc:SAML:2.0:bindings:HTTP-POST"
+    },
+    "singleLogoutService": {
+      "url": "http://localhost:8080/logout",
+      "binding": "urn:oasis:names:tc:SAML:2.0:bindings:HTTP-Redirect"
+    },
+    "x509cert": "{{ servide_provider_cert|b64encode }}",
+    "privateKey": "private-key.pem"
+  },
+  "idp": {
+    "entityId": "http://localhost:5000/saml/auth",
+    "singleSignOnService": {
+      "url": "http://localhost:5000/saml",
+      "binding": "urn:oasis:names:tc:SAML:2.0:bindings:HTTP-Redirect"
+    },
+    "x509cert": ""
+  }
+}

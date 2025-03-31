@@ -1,3 +1,4 @@
 saml/private-key.pem
 saml/service-provider.crt
 saml/service-provider.csr
+saml/settings.json

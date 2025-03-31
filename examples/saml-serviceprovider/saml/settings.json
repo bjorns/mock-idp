@@ -2,7 +2,7 @@
   "strict": true,
   "debug": true,
   "sp": {
-    "entityId": "http://localhost:8080/metadata/",
+    "entityId": "local:example:onelogin",
     "assertionConsumerService": {
       "url": "http://localhost:8080/acs",
       "binding": "urn:oasis:names:tc:SAML:2.0:bindings:HTTP-POST"

@@ -1,13 +1,27 @@
-import base64
-import os.path
+"""
+Instead of requiring the user to configure the certificate for the service
+provider before using it, we just generate certificates as part of booting. This consists of
+
+* Generating a private key
+* Generating a certificate signing request
+* Generating a self-signing the certificate
+* Generating a SAML settings.json with the certificate included.
+"""
+from base64 import b64encode
 from subprocess import Popen, PIPE
-from os.path import join as joinpath
+from os.path import join as joinpath, dirname
 
 from jinja2 import Environment, FileSystemLoader
 
-TARGET_DIR = os.path.join(os.path.dirname(__file__), 'saml')
-TEMPLATES_PATH = os.path.join(os.path.dirname(__file__), 'templates')
+TARGET_DIR = joinpath(dirname(__file__), 'saml')
+TEMPLATES_PATH = joinpath(dirname(__file__), 'templates')
 
+
+def init_saml():
+    private_key_path = generate_private_key("private-key.pem")
+    signing_request_path = generate_certificate_signing_request(private_key_path, "service-provider.csr")
+    certificate_path = generate_certificate(private_key_path, signing_request_path, "service-provider.crt")
+    render_settings_json(_load_str(certificate_path))
 
 def generate_private_key(filename: str) -> str:
     result_file = joinpath(TARGET_DIR, filename)
@@ -33,24 +47,15 @@ def generate_certificate(private_key_file: str, signing_request_file: str, filen
     return result_file
 
 
-def render_settings_json(certificate: str) -> str:
+def render_settings_json(certificate: str):
     loader = FileSystemLoader(searchpath=TEMPLATES_PATH)
     env = Environment(loader=loader)
-    env.filters['b64encode'] = lambda s: base64.b64encode(s.encode('utf-8')).decode('utf-8')
+    env.filters['b64encode'] = lambda s: b64encode(s.encode('utf-8')).decode('utf-8')
     template = env.get_template('settings.json')
-    # TODO: Generate SSL certs
-
-    # Render to file
-    with open(os.path.join(os.path.dirname(__file__), 'saml/settings.json'), 'w') as f:
+    with open(joinpath(dirname(__file__), 'saml/settings.json'), 'w') as f:
         f.write(template.render(servide_provider_cert=certificate))
 
 
-def load_str(filepath:str) -> str:
+def _load_str(filepath:str) -> str:
     with open(filepath, 'r') as f:
         return f.read()
-
-def init_ssl():
-    private_key_path = generate_private_key("private-key.pem")
-    signing_request_path = generate_certificate_signing_request(private_key_path, "service-provider.csr")
-    certificate_path = generate_certificate(private_key_path, signing_request_path, "service-provider.crt")
-    render_settings_json(load_str(certificate_path))

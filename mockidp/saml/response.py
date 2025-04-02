@@ -31,7 +31,7 @@ def read_bytes(path):
 def sign_assertions(response_str):
     """ Return signed response string """
     response_element = etree.fromstring(response_str)
-    cert = read_bytes("keys/cert.pem")
+    cert = read_bytes("keys/cert.pem").decode('ascii')
     key = read_bytes("keys/key.pem")
     for e in response_element.findall('{urn:oasis:names:tc:SAML:2.0:assertion}Assertion'):
         signer = XMLSigner(c14n_algorithm="http://www.w3.org/2001/10/xml-exc-c14n#",

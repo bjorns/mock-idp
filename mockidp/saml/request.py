@@ -15,11 +15,7 @@ class SAMLRequest:
         self.idp_id = idp_id
 
 def try_deflate(request_body):
-    try:
-        return zlib.decompress(request_body, -15)
-    except Exception as e:
-        logging.exception("Failed to defalate")        
-        return request_body
+    return zlib.decompress(request_body, -15)
 
 
 def parse_request(request_body):

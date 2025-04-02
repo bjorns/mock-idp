@@ -61,7 +61,7 @@ def authenticate():
             return '404: Missing login session', 404
         saml_request = open_saml_requests[saml_req_id]
         session = get_session(user, saml_request)
-        url, saml_response = create_auth_response(conf, session, saml_req_id)
+        url, saml_response = create_auth_response(conf, session, saml_request)
         return flask.render_template('auth_response.html', post_url=url, saml_response=saml_response)
     else:
         flask.flash(f"Incorrect username or password {username}")

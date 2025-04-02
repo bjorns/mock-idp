@@ -1,13 +1,15 @@
-import os
-from flask import Flask, request, redirect, session, render_template, render_template_string, Response
+from os.path import join as joinpath, dirname
+
+from flask import Flask, request, redirect, session, render_template_string, Response
 from onelogin.saml2.auth import OneLogin_Saml2_Auth
 
-from saml import init_saml, load_str
+from saml import init_saml
+from template import load_template_str
 
 app = Flask(__name__)
 app.secret_key = 'supersecretkey'  # Change for production
 
-SAML_PATH = os.path.join(os.path.dirname(__file__), 'saml')
+SAML_PATH = joinpath(dirname(__file__), 'saml')
 
 LOGGED_IN_PAGE = """
 <!DOCTYPE html>
@@ -24,7 +26,7 @@ def init_saml_auth(req):
 
 def prepare_flask_request():
     """Prepares the Flask request for SAML."""
-    url_data = request.host_url.rstrip('/')
+    _ = request.host_url.rstrip('/')
     return {
         'https': 'on' if request.scheme == 'https' else 'off',
         'http_host': request.host,
@@ -39,8 +41,7 @@ def index():
     if 'samlUserdata' in session:
         name = session['samlUserdata'].get('name', ['User'])[0]
         return render_template_string(LOGGED_IN_PAGE, name=name)
-    template_file = os.path.join(os.path.dirname(__file__), 'templates/login_page.html')
-    return render_template_string(load_str(template_file))
+    return render_template_string(load_template_str('templates/login_page.html'))
 
 @app.route('/login', methods=['POST'])
 def login():

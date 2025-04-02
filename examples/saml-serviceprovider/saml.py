@@ -13,6 +13,8 @@ from os.path import join as joinpath, dirname
 
 from jinja2 import Environment, FileSystemLoader
 
+from template import load_str
+
 TARGET_DIR = joinpath(dirname(__file__), 'saml')
 TEMPLATES_PATH = joinpath(dirname(__file__), 'templates')
 
@@ -55,7 +57,3 @@ def render_settings_json(certificate: str):
     with open(joinpath(dirname(__file__), 'saml/settings.json'), 'w') as f:
         f.write(template.render(servide_provider_cert=certificate))
 
-
-def load_str(filepath:str) -> str:
-    with open(filepath, 'r') as f:
-        return f.read()

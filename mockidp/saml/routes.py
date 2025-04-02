@@ -21,10 +21,8 @@ def init(_conf):
 def begin_login():
     saml_request = flask.request.form['SAMLRequest']
     req = parse_request(saml_request)
-
     logging.info("Storing request %s", req.id)
     open_saml_requests[req.id] = req
-
     response = flask.make_response(flask.redirect("/saml/login", code=302))
     response.set_cookie('mockidp_request_id', value=req.id)
     return response
@@ -63,7 +61,7 @@ def authenticate():
             return '404: Missing login session', 404
         saml_request = open_saml_requests[saml_req_id]
         session = get_session(user, saml_request)
-        url, saml_response = create_auth_response(conf, session)
+        url, saml_response = create_auth_response(conf, session, saml_req_id)
         return flask.render_template('auth_response.html', post_url=url, saml_response=saml_response)
     else:
         flask.flash(f"Incorrect username or password {username}")

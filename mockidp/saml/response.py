@@ -41,8 +41,8 @@ def sign_assertions(response_str):
     return etree.tostring(response_element, pretty_print=True)
 
 
-def create_auth_response(config, session):
-    rendered_response = render_response(session, session.user)
+def create_auth_response(config, session, saml_req_id):
+    rendered_response = render_response(session, session.user, saml_req_id)
 
     signed_response = sign_assertions(rendered_response)
 
@@ -54,13 +54,15 @@ def create_auth_response(config, session):
     return url, encoded_response
 
 
-def render_response(session, user):
+def render_response(session, user, saml_request_id):
     template = env.get_template('saml_response.xml')
     issue_instant = get_issue_instant(session)
     params = dict(
         issue_instant=issue_instant,
         session=session,
-        user=user
+        user=user,
+        saml_request_id=saml_request_id,
+        recipient_url="http://localhost:8080/acs"
     )
     response = template.render(params)
 

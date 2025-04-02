@@ -17,7 +17,7 @@
         <saml:Subject>
             <saml:NameID SPNameQualifier="{{ session.sp_entity_id }}" Format="urn:oasis:names:tc:SAML:2.0:nameid-format:transient">{{ user.username }}</saml:NameID>
             <saml:SubjectConfirmation Method="urn:oasis:names:tc:SAML:2.0:cm:bearer">
-                <saml:SubjectConfirmationData NotOnOrAfter="2034-01-18T06:21:48Z" Recipient="http://sp.example.com/demo1/index.php?acs" InResponseTo="ONELOGIN_4fee3b046395c4e751011e97f8900b5273d56685"/>
+                <saml:SubjectConfirmationData NotOnOrAfter="2034-01-18T06:21:48Z" Recipient="{{ recipient_url }}" InResponseTo="{{ saml_request_id }}"/>
             </saml:SubjectConfirmation>
         </saml:Subject>
         <saml:Conditions>

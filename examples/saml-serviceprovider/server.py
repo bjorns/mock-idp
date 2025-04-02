@@ -11,15 +11,6 @@ app.secret_key = 'supersecretkey'  # Change for production
 
 SAML_PATH = joinpath(dirname(__file__), 'saml')
 
-LOGGED_IN_PAGE = """
-<!DOCTYPE html>
-<html>
-<head><title>Welcome</title></head>
-<body>
-    <h2>Congratulations {{ name }}, you have been logged in!</h2>
-</body>
-</html>
-"""
 
 def init_saml_auth(req):
     return OneLogin_Saml2_Auth(req, custom_base_path=SAML_PATH)
@@ -40,7 +31,7 @@ def prepare_flask_request():
 def index():
     if 'samlUserdata' in session:
         name = session['samlUserdata'].get('name', ['User'])[0]
-        return render_template_string(LOGGED_IN_PAGE, name=name)
+        return render_template_string(load_template_str('templates/app_page.html'), name=name)
     return render_template_string(load_template_str('templates/login_page.html'))
 
 @app.route('/login', methods=['POST'])

@@ -15,7 +15,7 @@
     "privateKey": "private-key.pem"
   },
   "idp": {
-    "entityId": "http://localhost:5000/saml/auth",
+    "entityId": "http://localhost:5000/saml",
     "singleSignOnService": {
       "url": "http://localhost:5000/saml",
       "binding": "urn:oasis:names:tc:SAML:2.0:bindings:HTTP-Redirect"

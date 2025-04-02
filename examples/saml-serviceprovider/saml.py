@@ -21,7 +21,7 @@ def init_saml():
     private_key_path = generate_private_key("private-key.pem")
     signing_request_path = generate_certificate_signing_request(private_key_path, "service-provider.csr")
     certificate_path = generate_certificate(private_key_path, signing_request_path, "service-provider.crt")
-    render_settings_json(_load_str(certificate_path))
+    render_settings_json(load_str(certificate_path))
 
 def generate_private_key(filename: str) -> str:
     result_file = joinpath(TARGET_DIR, filename)
@@ -56,6 +56,6 @@ def render_settings_json(certificate: str):
         f.write(template.render(servide_provider_cert=certificate))
 
 
-def _load_str(filepath:str) -> str:
+def load_str(filepath:str) -> str:
     with open(filepath, 'r') as f:
         return f.read()

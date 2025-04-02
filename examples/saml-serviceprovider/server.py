@@ -1,30 +1,13 @@
 import os
-from flask import Flask, request, redirect, session, render_template_string, Response
+from flask import Flask, request, redirect, session, render_template, render_template_string, Response
 from onelogin.saml2.auth import OneLogin_Saml2_Auth
-from jinja2 import Environment, FileSystemLoader
 
-from saml import init_saml
+from saml import init_saml, load_str
 
 app = Flask(__name__)
 app.secret_key = 'supersecretkey'  # Change for production
 
 SAML_PATH = os.path.join(os.path.dirname(__file__), 'saml')
-
-# HTML Templates
-LOGIN_PAGE = """
-<!DOCTYPE html>
-<html>
-<head>
-  <title>Login</title>
-</head>
-<body>
-    <h2>Welcome to the Onelogin SAML 2.0 Service Provider</h2>
-    <form action="/login" method="POST">
-        <button type="submit">Login</button>
-    </form>
-</body>
-</html>
-"""
 
 LOGGED_IN_PAGE = """
 <!DOCTYPE html>
@@ -56,7 +39,8 @@ def index():
     if 'samlUserdata' in session:
         name = session['samlUserdata'].get('name', ['User'])[0]
         return render_template_string(LOGGED_IN_PAGE, name=name)
-    return LOGIN_PAGE
+    template_file = os.path.join(os.path.dirname(__file__), 'templates/login_page.html')
+    return render_template_string(load_str(template_file))
 
 @app.route('/login', methods=['POST'])
 def login():

@@ -7,6 +7,7 @@ provider before using it, we just generate certificates as part of booting. This
 * Generating a self-signing the certificate
 * Generating a SAML settings.json with the certificate included.
 """
+import logging
 from base64 import b64encode
 from os.path import join as joinpath, dirname
 
@@ -22,6 +23,7 @@ def init_saml():
     private_key_path = generate_private_key("saml-sp/private-key.pem")
     signing_request_path = generate_certificate_signing_request(private_key_path, "saml-sp/service-provider.csr")
     certificate_path = generate_certificate(private_key_path, signing_request_path, "saml-sp/service-provider.crt")
+    logging.info("Using certificate %s", certificate_path)
     render_settings_json(load_str(certificate_path))
 
 

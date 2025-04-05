@@ -1,3 +1,4 @@
+import logging
 from os.path import join as joinpath, dirname
 
 from flask import Flask, request, redirect, session, render_template_string, Response
@@ -5,6 +6,8 @@ from onelogin.saml2.auth import OneLogin_Saml2_Auth
 
 from saml import init_saml
 from template import load_template_str
+
+logging.basicConfig(level=logging.INFO, force=True)
 
 app = Flask(__name__)
 app.secret_key = 'supersecretkey'  # Change for production

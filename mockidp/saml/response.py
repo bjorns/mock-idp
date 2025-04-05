@@ -62,7 +62,6 @@ def render_response(session, user, saml_request):
         session=session,
         user=user,
         saml_request=saml_request,
-        saml_request_id=saml_request.id
     )
     response = template.render(params)
 
